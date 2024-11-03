@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1667641120903903674, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: _assetId
+      value: 2590452356
+      objectReference: {fileID: 0}
     - target: {fileID: 2278849242409018652, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
       propertyPath: m_Name
       value: VirusCard Variant

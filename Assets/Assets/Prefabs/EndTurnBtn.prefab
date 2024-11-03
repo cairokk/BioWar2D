@@ -147,6 +147,8 @@ GameObject:
   - component: {fileID: 1302757266079609313}
   - component: {fileID: 3571718584186565217}
   - component: {fileID: 6095032690589518459}
+  - component: {fileID: -5038551743211658328}
+  - component: {fileID: -1493350646974596246}
   m_Layer: 5
   m_Name: EndTurnBtn
   m_TagString: Untagged
@@ -280,7 +282,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fccd859ca1f927041ba87342813f8ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cartaVacina: {fileID: 2278849242409018652, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
-  cartaVirus: {fileID: 7899667507097016990, guid: 465f30cb3d3f79c4ba4a93d4ca6d6f71, type: 3}
-  playerArea: {fileID: 0}
-  enemyArea: {fileID: 0}
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  player: {fileID: 0}
+--- !u!114 &-5038551743211658328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082956017144026791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 1091676695
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &-1493350646974596246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7082956017144026791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 6030901049615533346}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  timelineOffset: 1
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01
