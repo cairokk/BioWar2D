@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: _assetId
       value: 2590452356
       objectReference: {fileID: 0}
+    - target: {fileID: 2090572471465533460, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c5880de0d93f9f343b7285e0d7fe302a, type: 3}
     - target: {fileID: 2278849242409018652, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
       propertyPath: m_Name
       value: VirusCard Variant
@@ -97,6 +101,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6445232805471317903, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 02d3ade513ead15408e872eb55a90810, type: 3}
+    - target: {fileID: 8459717841628280331, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: cardBack
+      value: 
+      objectReference: {fileID: 21300000, guid: c5880de0d93f9f343b7285e0d7fe302a, type: 3}
+    - target: {fileID: 8459717841628280331, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: cardFront
+      value: 
+      objectReference: {fileID: 21300000, guid: 02d3ade513ead15408e872eb55a90810, type: 3}
+    - target: {fileID: 9004621168074668235, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 02d3ade513ead15408e872eb55a90810, type: 3}

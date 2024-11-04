@@ -38,8 +38,21 @@ public class Player : NetworkBehaviour
         {
             GameObject newCard = Instantiate(cards[Random.Range(0, cards.Count)], new Vector2(0, 0), Quaternion.identity);
             NetworkServer.Spawn(newCard, connectionToClient);
-            RpcShowCards(newCard,"Dealt");
+            RpcShowCards(newCard, "Dealt");
         }
+    }
+
+    public void PlayCard(GameObject card)
+    {
+        CmdPlayCard(card);
+    }
+
+    [Command]
+    void CmdPlayCard(GameObject card)
+    {
+        Debug.Log(card);
+        Debug.Log("Carta Ativada e adicionada ao Descarte.");
+        Destroy(card);
     }
     [ClientRpc]
     void RpcShowCards(GameObject card, string type)
@@ -48,11 +61,12 @@ public class Player : NetworkBehaviour
         {
             if (isOwned)
             {
-                card.transform.SetParent(playerArea.transform,false);
+                card.transform.SetParent(playerArea.transform, false);
             }
             else
             {
-                card.transform.SetParent(enemyArea.transform,false);
+                card.GetComponent<CardFlipper>().Flip();
+                card.transform.SetParent(enemyArea.transform, false);
             }
         }
     }
