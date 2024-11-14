@@ -20,6 +20,50 @@ PrefabInstance:
       propertyPath: m_Name
       value: VirusCard Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 02d3ade513ead15408e872eb55a90810, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 02d3ade513ead15408e872eb55a90810, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: a903a277435d74f4184c935db53050ad, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 86c74618da58e034babda5c625288aaf, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: d9f7ccf3eb919b04bbe0c7ea15cc980a, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: fd2550ba0c162e342b8cbcf254e80143, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: 13b45c7bca9a55c48bfd7b8eaa19df2d, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[7]
+      value: 
+      objectReference: {fileID: 21300000, guid: 5aaf0275d33dda34c8789668ddfa03e5, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[8]
+      value: 
+      objectReference: {fileID: 21300000, guid: 679ce3c64a9c45d4d96cfef39dcf87ea, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[9]
+      value: 
+      objectReference: {fileID: 21300000, guid: 8d4bff6a13cdbdd4c90e61618130503c, type: 3}
+    - target: {fileID: 2782534512882221111, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: costSprites.Array.data[10]
+      value: 
+      objectReference: {fileID: 21300000, guid: 8d4bff6a13cdbdd4c90e61618130503c, type: 3}
     - target: {fileID: 4962933526707629942, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

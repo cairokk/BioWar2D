@@ -8,10 +8,10 @@ using UnityEngine;
 public class DrawCards : NetworkBehaviour
 {
     
-    public Player player;
+    public PlayerController player;
     public void onClick(){
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-        player = networkIdentity.GetComponent<Player>();
+        player = networkIdentity.GetComponent<PlayerController>();
         player.CmdDealCards();
     }
 

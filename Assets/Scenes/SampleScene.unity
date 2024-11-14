@@ -651,6 +651,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0.0000076293945
       objectReference: {fileID: 0}
+    - target: {fileID: 2836805079444541496, guid: ecdf971fe0f70f2489cce57186b2468d, type: 3}
+      propertyPath: sceneId
+      value: 3138747074
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -763,6 +767,10 @@ PrefabInstance:
     - target: {fileID: 5910025788546344681, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018781149834667476, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
+      propertyPath: sceneId
+      value: 1137764771
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -967,6 +975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmericaNorte
       objectReference: {fileID: 0}
+    - target: {fileID: 2907212272262998309, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
+      propertyPath: sceneId
+      value: 1984725888
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1076,6 +1088,10 @@ PrefabInstance:
     - target: {fileID: 1275417601167458244, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4512242911035555065, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
+      propertyPath: sceneId
+      value: 2707307600
       objectReference: {fileID: 0}
     - target: {fileID: 7400265229469946079, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1205,6 +1221,10 @@ PrefabInstance:
     - target: {fileID: 2263763202570745278, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3478753823210993283, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
+      propertyPath: sceneId
+      value: 2813900469
       objectReference: {fileID: 0}
     - target: {fileID: 7524027519015754405, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1547,6 +1567,10 @@ PrefabInstance:
     - target: {fileID: 595708997956905520, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 51.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5794392385552041494, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
+      propertyPath: sceneId
+      value: 1943874825
       objectReference: {fileID: 0}
     - target: {fileID: 7115399012499668991, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
       propertyPath: m_Name
