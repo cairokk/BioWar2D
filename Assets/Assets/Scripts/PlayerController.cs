@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using Unity.VisualScripting;
-using Mirror.BouncyCastle.Asn1.Cms;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -11,6 +9,9 @@ public class PlayerController : NetworkBehaviour
 
     public GameObject cartaVirus;
     public GameObject cartaVacina;
+
+
+
     public GameObject playerArea;
     public GameObject enemyArea;
     public GameObject dropZone;
@@ -24,57 +25,64 @@ public class PlayerController : NetworkBehaviour
     [SyncVar] public List<Card> playerDiscarte = new();
     [SyncVar] public List<Card> enemyDeck = new();
     [SyncVar] public List<Card> enemyDiscarte = new();
-    [SyncVar] public string playerTeam;
+
+    [SyncVar(hook = nameof(OnTeamChanged))]
+    public string playerTeam;
     [SyncVar] public bool verificadorTime = false;
 
     [SyncVar] private int playerRecurso = 0;
     [SyncVar] private int enemyRecurso = 0;
 
+    LobbyUIManager lobbyUIManager;
 
-    List<GameObject> cards = new List<GameObject>();
+    private bool isGameSceneLoaded = false;
 
-    public override void OnStartClient()
+    private void Awake()
     {
-        if (!verificadorTime)
-        {
-            playerTeam = "vacina";
-            CmdAtualizarVerificadorTime();
-        }
-        else
-        {
-            playerTeam = "virus";
-            CmdAtualizarVerificadorTime();
-
-        }
-        playerArea = GameObject.Find("PlayerArea");
-        enemyArea = GameObject.Find("EnemyArea");
-        dropZone = GameObject.Find("DropZone");
-
-
-        base.OnStartClient();
-
-
+        // Adiciona um evento para detectar o carregamento da cena do jogo
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    [Server]
-    public override void OnStartServer()
+    private void OnDestroy()
     {
+        // Remove o evento ao destruir o objeto para evitar referência inválida
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
-        if (!verificadorTime)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Verifica se é a cena do jogo
+        if (scene.name == "Jogo")
         {
-            playerTeam = "vacina";
-            CmdAtualizarVerificadorTime();
+            isGameSceneLoaded = true;
+            InitializeGameObjects();
         }
-        else
+    }
+    private void InitializeGameObjects()
+    {
+        // Inicializa as áreas do jogo
+        playerArea = GameObject.Find("PlayerArea");
+        enemyArea = GameObject.Find("EnemyArea");
+        // Verifique se os objetos foram encontrados
+        if (playerArea == null || enemyArea == null)
         {
-            playerTeam = "virus";
-            CmdAtualizarVerificadorTime();
+            Debug.LogError("Áreas do jogo não foram encontradas na cena do jogo.");
+            return;
+        }
 
+        // Inicialização do deck ou outras configurações específicas do jogo
+        Debug.Log("Jogo inicializado para " + playerTeam);
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        DontDestroyOnLoad(gameObject);
+        lobbyUIManager = FindObjectOfType<LobbyUIManager>();
+        if (lobbyUIManager != null)
+        {
+            lobbyUIManager.SetPlayerController(this);
         }
-        cards.Add(cartaVacina);
-        cards.Add(cartaVirus);
-        Debug.Log(cards);
-        base.OnStartServer();
     }
 
     [Command]
@@ -92,7 +100,7 @@ public class PlayerController : NetworkBehaviour
                 RpcShowCards(newCard, "Dealt");
             }
 
-            if (playerTeam == "Virus")
+            if (playerTeam == "virus")
             {
                 Carta drawnCard = deckVirus.initialDeck[0];
                 GameObject newCard = Instantiate(cartaVirus, new Vector2(0, 0), Quaternion.identity);
@@ -103,18 +111,6 @@ public class PlayerController : NetworkBehaviour
             }
         }
     }
-
-    [Command]
-    void CmdAtualizarVerificadorTime(){
-        RpcAtualizarVerificadorTime();
-    }
-
-    [ClientRpc]
-    void RpcAtualizarVerificadorTime(){
-        Debug.Log(verificadorTime);
-        verificadorTime = !verificadorTime;
-    }
-
 
     public void PlayCard(GameObject card)
     {
@@ -131,6 +127,12 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     void RpcShowCards(GameObject card, string type)
     {
+
+        if (playerArea == null || enemyArea == null)
+        {
+            Debug.LogWarning("Áreas do jogo ainda não foram inicializadas.");
+            InitializeGameObjects();  // Tenta inicializar novamente, caso não tenha sido feito
+        }
         if (type == "Dealt")
         {
             if (isOwned)
@@ -143,5 +145,28 @@ public class PlayerController : NetworkBehaviour
                 card.transform.SetParent(enemyArea.transform, false);
             }
         }
+    }
+
+
+    [Command]
+    public void CmdSwitchTeamsForAll()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            if (conn.identity != null)
+            {
+                var player = conn.identity.GetComponent<PlayerController>();
+                if (player != null)
+                {
+                    // Alterna o time de cada jogador
+                    player.playerTeam = (player.playerTeam == "vacina") ? "virus" : "vacina";
+                }
+            }
+        }
+    }
+    void OnTeamChanged(string oldTeam, string newTeam)
+    {
+        // Atualiza o destaque na UI para o novo time
+        FindObjectOfType<LobbyUIManager>().UpdateTeamHighlight();
     }
 }

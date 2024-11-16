@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
-  syncMode: 0
+  syncMode: 1
   syncInterval: 0
   baseData: {fileID: 11400000, guid: 8729879d9cccde746bfcf11999f95a45, type: 2}
   textoVida: {fileID: 381096708810779613}

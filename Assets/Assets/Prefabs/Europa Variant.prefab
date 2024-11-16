@@ -220,6 +220,14 @@ PrefabInstance:
       propertyPath: m_Points.Array.data[13].y
       value: -142.59717
       objectReference: {fileID: 0}
+    - target: {fileID: 8103608681780937987, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 91.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8103608681780937987, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 51.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
