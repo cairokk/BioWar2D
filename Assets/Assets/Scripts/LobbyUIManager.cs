@@ -1,7 +1,9 @@
+using System.Collections;
 using Edgegap;
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LobbyUIManager : NetworkBehaviour
@@ -15,42 +17,26 @@ public class LobbyUIManager : NetworkBehaviour
     [Scene]
     [Tooltip("Nome da cena para a qual todos os jogadores serão transportados")]
     public string targetScene;  // Nome da cena para a qual queremos transportar os jogadores
+    
 
-    // Esse método será chamado pelo servidor quando o botão for clicado
-
-    public void OnClickRequestSceneTransition()
+    public void OnButtonClicked()
     {
-        if (playerController.isLocalPlayer) // Garante que apenas o cliente local envia o comando
+
+        GameObject player = GameObject.FindWithTag("Player");
+
+        if (player != null && isServer)
         {
-            CmdRequestSceneTransition();
+            StartCoroutine(SendPlayerToNewScene(player));
         }
-    }
-
-    // O servidor recebe o comando e executa a transição de cena para todos os clientes
-    [Command]
-    void CmdRequestSceneTransition()
-    {
-        TransportPlayersToScene();
-    }
-
-    [Server]
-    public void TransportPlayersToScene()
-    {
-        // Envia a mensagem de carregamento de cena para todos os jogadores conectados
-        foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+        else
         {
-            if (conn != null)
-            {
-                SceneMessage message = new SceneMessage { sceneName = targetScene, sceneOperation = SceneOperation.LoadAdditive };
-                conn.Send(message);
-            }
+            Debug.LogWarning("Player object is not assigned or not on server.");
         }
     }
 
     void Start()
     {
         switchTeamButton.onClick.AddListener(OnSwitchTeamClicked);
-        inciarJogo.onClick.AddListener(OnClickRequestSceneTransition);
     }
 
     public void SetPlayerController(PlayerController controller)
@@ -99,9 +85,27 @@ public class LobbyUIManager : NetworkBehaviour
         }
     }
 
-    void StartGame()
+    [ServerCallback]
+    IEnumerator SendPlayerToNewScene(GameObject player)
     {
-        NetworkManager.singleton.ServerChangeScene("Jogo");
+        if (player.TryGetComponent<NetworkIdentity>(out NetworkIdentity identity))
+        {
+            NetworkConnectionToClient conn = identity.connectionToClient;
+            if (conn == null) yield break;
+
+            conn.Send(new SceneMessage { sceneName = this.gameObject.scene.path, sceneOperation = SceneOperation.UnloadAdditive, customHandling = true });
+
+            NetworkServer.RemovePlayerForConnection(conn, RemovePlayerOptions.Destroy);
+
+            SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByPath(targetScene));
+            conn.Send(new SceneMessage{sceneName = targetScene, sceneOperation = SceneOperation.LoadAdditive, customHandling = true});
+
+            NetworkServer.AddPlayerForConnection(conn,player);
+            
+        }
+
+
+
     }
 
 

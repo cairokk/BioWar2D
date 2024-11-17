@@ -37,27 +37,6 @@ public class PlayerController : NetworkBehaviour
 
     private bool isGameSceneLoaded = false;
 
-    private void Awake()
-    {
-        // Adiciona um evento para detectar o carregamento da cena do jogo
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDestroy()
-    {
-        // Remove o evento ao destruir o objeto para evitar referência inválida
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Verifica se é a cena do jogo
-        if (scene.name == "Jogo")
-        {
-            isGameSceneLoaded = true;
-            InitializeGameObjects();
-        }
-    }
     private void InitializeGameObjects()
     {
         // Inicializa as áreas do jogo
@@ -77,7 +56,7 @@ public class PlayerController : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
         lobbyUIManager = FindObjectOfType<LobbyUIManager>();
         if (lobbyUIManager != null)
         {
@@ -128,11 +107,12 @@ public class PlayerController : NetworkBehaviour
     void RpcShowCards(GameObject card, string type)
     {
 
-        if (playerArea == null || enemyArea == null)
+        while (playerArea == null || enemyArea == null)
         {
             Debug.LogWarning("Áreas do jogo ainda não foram inicializadas.");
             InitializeGameObjects();  // Tenta inicializar novamente, caso não tenha sido feito
         }
+
         if (type == "Dealt")
         {
             if (isOwned)

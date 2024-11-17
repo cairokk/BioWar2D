@@ -414,8 +414,8 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  subScenes:
-  - Assets/Assets/Scenes/Jogo.unity
+  painelJogo: {fileID: 0}
+  painelLobby: {fileID: 0}
 --- !u!114 &2111137304
 MonoBehaviour:
   m_ObjectHideFlags: 0

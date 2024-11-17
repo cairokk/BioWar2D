@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: -2075477758069723017}
   m_Layer: 8
   m_Name: AmericaNorte
-  m_TagString: Untagged
+  m_TagString: Jogo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
