@@ -1,17 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using Mirror;
+using TMPro;
 using UnityEngine;
+using Image = UnityEngine.UI.Image;
 
 public class Card : NetworkBehaviour
 {
+    public Carta dadosCarta;
     public GameObject canvas;
-    public Player player;
+    public PlayerController player;
     private bool isDragging = false;
     private bool isDraggable = false;
     private GameObject startParent;
     private Vector2 startPosition;
     private bool isOverDropZone;
+    public TextMeshProUGUI textoNome;
+    public TextMeshProUGUI textoDescricao;
+    public TextMeshProUGUI textoNomeZoom;
+    public TextMeshProUGUI textoDescricaoZoom;
+    public Sprite[] costSprites;
+    public Image ImagemCarta;
+    public Image ImagemCartaZoom;
+    public Image moldura;
+    public Image molduraZoom;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +38,21 @@ public class Card : NetworkBehaviour
         {
             isDraggable = true;
         }
+    }
+
+    public void UpdateCard(Carta novosDados)
+    {
+        dadosCarta = novosDados;
+        textoNome.text = dadosCarta.nome;
+        textoNomeZoom.text = dadosCarta.nome;
+        textoDescricao.text = dadosCarta.descricao;
+        textoDescricaoZoom.text = dadosCarta.descricao;
+
+        moldura.sprite = costSprites[dadosCarta.custo];
+        molduraZoom.sprite = costSprites[dadosCarta.custo];
+        ImagemCarta.sprite = dadosCarta.imagem;
+        ImagemCartaZoom.sprite = dadosCarta.imagem;
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -48,8 +80,8 @@ public class Card : NetworkBehaviour
             Debug.Log("Carta ativada!!!!!!!");
             Destroy(gameObject, 0.5f);
             NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-            player = networkIdentity.GetComponent<Player>();
-            player.PlayCard(gameObject);  
+            player = networkIdentity.GetComponent<PlayerController>();
+            player.PlayCard(gameObject);
         }
         else
         {

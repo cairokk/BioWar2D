@@ -403,134 +403,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &630519849
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 630519853}
-  - component: {fileID: 630519852}
-  - component: {fileID: 630519851}
-  - component: {fileID: 630519850}
-  m_Layer: 0
-  m_Name: NetworkManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &630519850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630519849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  port: 7777
-  DualMode: 1
-  NoDelay: 1
-  Interval: 10
-  Timeout: 10000
-  RecvBufferSize: 7361536
-  SendBufferSize: 7361536
-  FastResend: 2
-  ReceiveWindowSize: 4096
-  SendWindowSize: 4096
-  MaxRetransmit: 40
-  MaximizeSocketBuffers: 1
-  ReliableMaxMessageSize: 297433
-  UnreliableMaxMessageSize: 1194
-  debugLog: 0
-  statisticsGUI: 0
-  statisticsLog: 0
---- !u!114 &630519851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630519849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offsetX: 0
-  offsetY: 0
---- !u!114 &630519852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630519849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
-  runInBackground: 1
-  headlessStartMode: 0
-  editorAutoStart: 0
-  sendRate: 60
-  offlineScene: 
-  onlineScene: 
-  offlineSceneLoadDelay: 0
-  transport: {fileID: 630519850}
-  networkAddress: localhost
-  maxConnections: 100
-  disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
-  playerPrefab: {fileID: 8300983079500188266, guid: 5b2470a510a2ca741bb44fc07195b555, type: 3}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 2278849242409018652, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
-  - {fileID: 7899667507097016990, guid: 465f30cb3d3f79c4ba4a93d4ca6d6f71, type: 3}
-  - {fileID: 571842680282276008, guid: 4555d4688324a784a9e7316b2af4ec73, type: 3}
-  - {fileID: 3534784848412187684, guid: f6d4def46547bd345b19ac5bd8db2e33, type: 3}
-  - {fileID: 6570114731375310476, guid: 00cbdc56843217244be70d2a724cefb9, type: 3}
-  - {fileID: 7082956017144026791, guid: 4237687f5ab654647a4ab0e7a4d2f2b0, type: 3}
-  exceptionsDisconnect: 1
-  snapshotSettings:
-    bufferTimeMultiplier: 2
-    bufferLimit: 32
-    catchupNegativeThreshold: -1
-    catchupPositiveThreshold: 1
-    catchupSpeed: 0.019999999552965164
-    slowdownSpeed: 0.03999999910593033
-    driftEmaDuration: 1
-    dynamicAdjustment: 1
-    dynamicAdjustmentTolerance: 1
-    deliveryTimeEmaDuration: 2
-  evaluationMethod: 0
-  evaluationInterval: 3
-  timeInterpolationGui: 0
---- !u!4 &630519853
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630519849}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 959.3033, y: 517.4875, z: -1.4739501}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &762450310 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 609076359683199749, guid: ecdf971fe0f70f2489cce57186b2468d, type: 3}
@@ -643,13 +515,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Africa
       objectReference: {fileID: 0}
-    - target: {fileID: 2033254859588701368, guid: ecdf971fe0f70f2489cce57186b2468d, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
+    - target: {fileID: 2836805079444541496, guid: ecdf971fe0f70f2489cce57186b2468d, type: 3}
+      propertyPath: sceneId
+      value: 3138747074
       objectReference: {fileID: 0}
-    - target: {fileID: 2033254859588701368, guid: ecdf971fe0f70f2489cce57186b2468d, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000076293945
+    - target: {fileID: 2836805079444541496, guid: ecdf971fe0f70f2489cce57186b2468d, type: 3}
+      propertyPath: visibility
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -664,22 +536,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 180162}
     m_Modifications:
-    - target: {fileID: 2667422552511810034, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 52.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2667422552511810034, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 108.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5062305574023969108, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
-      objectReference: {fileID: 0}
-    - target: {fileID: 5062305574023969108, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000076293945
-      objectReference: {fileID: 0}
     - target: {fileID: 5764059087114968125, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
       propertyPath: m_Name
       value: AmericaSul
@@ -763,6 +619,14 @@ PrefabInstance:
     - target: {fileID: 5910025788546344681, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018781149834667476, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
+      propertyPath: sceneId
+      value: 1137764771
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018781149834667476, guid: 950d8900569c3614eb3e5b1c7cfc2426, type: 3}
+      propertyPath: visibility
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -967,6 +831,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmericaNorte
       objectReference: {fileID: 0}
+    - target: {fileID: 2907212272262998309, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
+      propertyPath: sceneId
+      value: 3032228716
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -985,14 +853,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 180162}
     m_Modifications:
-    - target: {fileID: 429949386777403513, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
-      objectReference: {fileID: 0}
-    - target: {fileID: 429949386777403513, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000076293945
-      objectReference: {fileID: 0}
     - target: {fileID: 885412086869886224, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
       propertyPath: m_Name
       value: Oceania
@@ -1077,29 +937,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7400265229469946079, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 46.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7400265229469946079, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 76.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8189767769129659607, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
-      propertyPath: m_Points.Array.size
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8189767769129659607, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
-      propertyPath: m_Points.Array.data[18].x
-      value: -93.40503
-      objectReference: {fileID: 0}
-    - target: {fileID: 8189767769129659607, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
-      propertyPath: m_Points.Array.data[19].x
-      value: -93.40497
-      objectReference: {fileID: 0}
-    - target: {fileID: 8189767769129659607, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
-      propertyPath: m_Points.Array.data[19].y
-      value: 16.277283
+    - target: {fileID: 4512242911035555065, guid: 098cf7391862fd744a1b3818e271e5b9, type: 3}
+      propertyPath: sceneId
+      value: 2707307600
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1117,14 +957,6 @@ PrefabInstance:
     - target: {fileID: 184696738957627242, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
       propertyPath: m_Name
       value: Asia
-      objectReference: {fileID: 0}
-    - target: {fileID: 805807466117474819, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
-      objectReference: {fileID: 0}
-    - target: {fileID: 805807466117474819, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000076293945
       objectReference: {fileID: 0}
     - target: {fileID: 2263763202570745278, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
       propertyPath: m_Pivot.x
@@ -1206,13 +1038,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7524027519015754405, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 61
+    - target: {fileID: 3478753823210993283, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
+      propertyPath: sceneId
+      value: 2813900469
       objectReference: {fileID: 0}
-    - target: {fileID: 7524027519015754405, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 130
+    - target: {fileID: 3478753823210993283, guid: 9b5ebf58934629040b5756019af48c58, type: 3}
+      propertyPath: visibility
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1229,7 +1061,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5038551743211658328, guid: 4237687f5ab654647a4ab0e7a4d2f2b0, type: 3}
       propertyPath: sceneId
-      value: 3253914254
+      value: 1885615458
       objectReference: {fileID: 0}
     - target: {fileID: 1302757266079609313, guid: 4237687f5ab654647a4ab0e7a4d2f2b0, type: 3}
       propertyPath: m_Sprite
@@ -1568,25 +1400,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 180162}
     m_Modifications:
-    - target: {fileID: 595708997956905520, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 91.3
+    - target: {fileID: 5794392385552041494, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
+      propertyPath: sceneId
+      value: 1943874825
       objectReference: {fileID: 0}
-    - target: {fileID: 595708997956905520, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 51.1
+    - target: {fileID: 5794392385552041494, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
+      propertyPath: visibility
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7115399012499668991, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
       propertyPath: m_Name
       value: Europa
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710189609828817558, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.000015258789
-      objectReference: {fileID: 0}
-    - target: {fileID: 7710189609828817558, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000076293945
       objectReference: {fileID: 0}
     - target: {fileID: 9170548908313494827, guid: 1d9b3810dbb47f740b07ffe20a8c72c8, type: 3}
       propertyPath: m_Pivot.x
@@ -1677,7 +1501,6 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
   - {fileID: 180162}
   - {fileID: 570728884}
-  - {fileID: 630519853}
+  - {fileID: 519420032}

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3191541161775831108}
   m_Layer: 7
   m_Name: PlayerArea
-  m_TagString: Untagged
+  m_TagString: Jogo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   sceneId: 0
   _assetId: 4195108047
   serverOnly: 0
-  visibility: 0
+  visibility: 2
   hasSpawned: 0
 --- !u!61 &3191541161775831108
 BoxCollider2D:
