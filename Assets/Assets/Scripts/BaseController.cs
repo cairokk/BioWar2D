@@ -20,7 +20,6 @@ public class BaseController : NetworkBehaviour
     {
 
         // Carrega os dados iniciais da base a partir de baseData
-        Debug.Log($"{baseData.name} - Health: {baseData.vida}, Contaminated: {baseData.nivelInfecao}");
         UpdateUI();
     }
 
