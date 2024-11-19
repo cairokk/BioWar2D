@@ -259,8 +259,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6095032690589518459}
-        m_TargetAssemblyTypeName: DrawCards, Assembly-CSharp
-        m_MethodName: onClick
+        m_TargetAssemblyTypeName: BtnEndTurnController, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -301,7 +301,7 @@ MonoBehaviour:
   sceneId: 0
   _assetId: 1091676695
   serverOnly: 0
-  visibility: 2
+  visibility: 0
   hasSpawned: 0
 --- !u!114 &-1493350646974596246
 MonoBehaviour:

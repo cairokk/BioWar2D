@@ -5,19 +5,17 @@ using Unity.Mathematics;
 using UnityEngine;
 
 
-public class DrawCards : NetworkBehaviour
+public class BtnIniciarJogo : NetworkBehaviour
 {
     
     public PlayerController player;
-    public void onClick(){
+    public void OnClick(){
+        Debug.Log("testando");
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         player = networkIdentity.GetComponent<PlayerController>();
-        player.CmdDealCards();
+        player.StartGame();
+        Debug.Log(player == null);
+        Debug.Log("Fim do OnClick");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

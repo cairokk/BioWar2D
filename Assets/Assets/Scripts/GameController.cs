@@ -6,32 +6,64 @@ public class GameController : NetworkBehaviour
 {
     // Lista de objetos do lobby e do jogo
     private List<GameObject> lobbyComponents;
-    private List<GameObject> gameComponents;
+    private TurnController turnController;
+    private List<PlayerController> players = new List<PlayerController>();
 
     void Start()
     {
         // Coleta todos os objetos do lobby e do jogo usando as tags
         lobbyComponents = new List<GameObject>(GameObject.FindGameObjectsWithTag("Lobby"));
-        gameComponents = new List<GameObject>(GameObject.FindGameObjectsWithTag("Jogo"));
 
-        // Garante que os componentes do Jogo estejam desativados no início
-        //SetActiveComponents(gameComponents, false);
+        turnController = FindObjectOfType<TurnController>();
     }
 
+    // [Command]
+    // public void CmdRequestStartGame()
+    // {
+    //     if (isServer)
+    //     {
+    //         players.AddRange(FindObjectsOfType<PlayerController>());
+
+    //         // Envia os jogadores para o TurnController e inicia o turno
+    //         if (turnController != null)
+    //         {
+    //             turnController.InitializePlayers(players);
+
+    //             turnController.StartTurn(TurnController.TurnState.TurnoVirus); // Começa com o turno do vírus
+    //         }
+    //     }
+
+    //     RpcStartGame();
+    // }
+    public void StartGame()
+    {
+        players.AddRange(FindObjectsOfType<PlayerController>());
+        Debug.Log("entrei no gameController");
+        // Envia os jogadores para o TurnController e inicia o turno
+        if (turnController != null)
+        {
+            turnController.InitializePlayers(players);
+
+            turnController.StartTurn(TurnController.TurnState.TurnoVirus); // Começa com o turno do vírus
+        }
+
+        RpcStartGame();
+    }
     [ClientRpc]
     void RpcStartGame()
     {
-        // Desativa os componentes do Lobby e ativa os do Jogo
+        Debug.Log("entrei no RpcStartGame");
+
         SetActiveComponents(lobbyComponents, false);
-        //SetActiveComponents(gameComponents, true);
+        foreach (var player in FindObjectsOfType<PlayerController>())
+        {
+            Debug.Log("entrei no laço de geração de carta");
+            if (player.isLocalPlayer)
+            {
+                player.CmdDealCards();
+            }
+        }
     }
-
-    [Server]
-    public void StartGame()
-    {
-        RpcStartGame();
-    }
-
     private void SetActiveComponents(List<GameObject> components, bool isActive)
     {
         foreach (var component in components)
@@ -40,12 +72,4 @@ public class GameController : NetworkBehaviour
         }
     }
 
-    public void OnStartGameButtonClicked()
-    {
-        if (isServer)
-        {
-            StartGame();
-
-        }
-    }
 }

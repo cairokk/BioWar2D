@@ -65,7 +65,10 @@ public class Card : NetworkBehaviour
     }
     public void StartDrag()
     {
-        if (!isDraggable) return;
+        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        player = networkIdentity.GetComponent<PlayerController>();
+
+        if (!isDraggable || !player.IsMyTurn()) return;
         isDragging = true;
         startParent = transform.parent.gameObject;
         startPosition = transform.position;
@@ -73,15 +76,19 @@ public class Card : NetworkBehaviour
 
     public void EndsDrag()
     {
-        if (!isDraggable) return;
+
+        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        player = networkIdentity.GetComponent<PlayerController>();
+
+        if (!isDraggable || !player.IsMyTurn()) return;
         isDragging = false;
         if (isOverDropZone)
         {
-            Debug.Log("Carta ativada!!!!!!!");
-            Destroy(gameObject, 0.5f);
-            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-            player = networkIdentity.GetComponent<PlayerController>();
-            player.PlayCard(gameObject);
+            if (player.PlayCard(gameObject))
+            {
+                Debug.Log("Carta ativada!!!!!!!");
+                Destroy(gameObject, 0.5f);
+            }
         }
         else
         {
@@ -97,7 +104,6 @@ public class Card : NetworkBehaviour
         if (isDragging)
         {
             transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            transform.SetParent(canvas.transform, true);
         }
     }
 }
