@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8300983079500188266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3008036583154329880}
+  - component: {fileID: 2392025466040356970}
+  - component: {fileID: -7872772411596167245}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3008036583154329880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300983079500188266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 959.3033, y: 517.4875, z: -1.4739501}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2392025466040356970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300983079500188266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e337b19fd776bec4f95b03913699c403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cartaVirus: {fileID: 7899667507097016990, guid: 465f30cb3d3f79c4ba4a93d4ca6d6f71, type: 3}
+  cartaVacina: {fileID: 2278849242409018652, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+  playerArea: {fileID: 0}
+  enemyArea: {fileID: 0}
+  dropZone: {fileID: 0}
+  virus: {fileID: 11400000, guid: 821959dd99150334fbbad54e4e85e250, type: 2}
+  Cura: {fileID: 11400000, guid: 32ce719479eb3da46a5ecadb1f3ceded, type: 2}
+  deckVirus: {fileID: 11400000, guid: b55f701b15591a342a34ce84b2a985b8, type: 2}
+  deckVacina: {fileID: 11400000, guid: 56ad3b9050fb3484d89a0d68570283b1, type: 2}
+  playerDeck: []
+  playerDiscarte: []
+  enemyDeck: []
+  enemyDiscarte: []
+  playerTeam: 
+  verificadorTime: 0
+--- !u!114 &-7872772411596167245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300983079500188266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 78266733
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
