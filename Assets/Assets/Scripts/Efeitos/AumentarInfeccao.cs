@@ -9,7 +9,9 @@ public class AumentarInfeccao : CartaEfeito
 
     public override void ApplyEffect(PlayerController player, GameController gameController)
     {
-        //player.Heal(qtdInfeccao);
+        int taxaDeInfeccao = gameController.atributosVirus.taxaDeInfeccao;
+        gameController.atributosVirus.taxaDeInfeccao = taxaDeInfeccao > 10 ? taxaDeInfeccao : taxaDeInfeccao + qtdInfeccao;
+        gameController.OnAtributosVirusChanged(gameController.atributosVirus);
         Debug.Log($"{player.name} aumentou {qtdInfeccao} de infecção.");
     }
 }

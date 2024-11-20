@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Linq;
 
 public class TurnController : NetworkBehaviour
 {
@@ -13,6 +14,7 @@ public class TurnController : NetworkBehaviour
     }
 
     private List<PlayerController> players;
+    private GameController gameController;
 
     [SyncVar]
     public TurnState currentTurn;
@@ -43,6 +45,11 @@ public class TurnController : NetworkBehaviour
         players = connectedPlayers;
     }
 
+    public void InitializeGameController(GameController gameController)
+    {
+        this.gameController = gameController;
+    }
+
     [ClientRpc]
     private void RpcStartVirusTurn()
     {
@@ -66,17 +73,37 @@ public class TurnController : NetworkBehaviour
     private void RpcExecuteEndOfTurnEvents()
     {
 
-        // Verifica condições de vitória e executa outros eventos finais
-        CheckVictoryCondition();
-        StartTurn(TurnState.TurnoVirus); // Começa um novo turno
+        AplicarDanoAsRegioes(gameController.bases);
+        AplicarAumentoDeInfeccao(gameController.bases);
+        AplicarAvancoDaCura();
+        CheckVictoryCondition(gameController.bases);
+        StartTurn(TurnState.TurnoVirus); // Começa uma nova rodada
 
     }
 
-    [Server]
-    private void CheckVictoryCondition()
+    private void AplicarDanoAsRegioes(List<BaseController> regioes){
+        foreach (var componente in regioes){
+            componente.regiao.CalcularDanoDaRodada();
+        }
+    }
+
+    private void AplicarAumentoDeInfeccao(List<BaseController> regioes){
+        foreach (var componente in regioes){
+            componente.regiao.CalcularNivelInfeccao(gameController.atributosVirus);
+        }
+    }
+
+    private void AplicarAvancoDaCura(){
+        gameController.atributosCura.calcularAvancoDaCura();
+    }
+
+    private void CheckVictoryCondition(List<BaseController> regioes)
     {
         bool virusWins = false;
         bool curaWins = false;
+        virusWins = !regioes.Any(r => r.regiao.vida > 0);
+        curaWins = gameController.atributosCura.taxaDacura >= 10;
+
 
         if (virusWins)
         {

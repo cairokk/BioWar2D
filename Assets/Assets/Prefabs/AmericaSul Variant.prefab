@@ -104,6 +104,14 @@ PrefabInstance:
       propertyPath: _assetId
       value: 2573606155
       objectReference: {fileID: 0}
+    - target: {fileID: 6364911774879066653, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
+      propertyPath: defesa
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364911774879066653, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
+      propertyPath: nomeBase
+      value: americaDoSul
+      objectReference: {fileID: 0}
     - target: {fileID: 7449285049490520331, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
       propertyPath: m_Points.Array.size
       value: 17
@@ -270,7 +278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103608681780937987, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 52.2
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 8103608681780937987, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -151,7 +151,7 @@ MonoBehaviour:
   sceneId: 0
   _assetId: 4195108047
   serverOnly: 0
-  visibility: 2
+  visibility: 0
   hasSpawned: 0
 --- !u!61 &3191541161775831108
 BoxCollider2D:

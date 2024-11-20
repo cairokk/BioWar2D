@@ -16,9 +16,6 @@ public class PlayerController : NetworkBehaviour
     public GameObject enemyArea;
     public GameObject dropZone;
 
-    [SyncVar] public Virus virus;
-    [SyncVar] public Cura Cura;
-
     public Deck deckVirus;
     public Deck deckVacina;
     [SyncVar] public List<Card> playerDeck = new();
@@ -29,6 +26,7 @@ public class PlayerController : NetworkBehaviour
 
     [SyncVar(hook = nameof(OnTeamChanged))]
     public string playerTeam;
+
     [SyncVar] public bool verificadorTime = false;
 
     [SyncVar] private int playerRecurso = 0;
@@ -45,12 +43,7 @@ public class PlayerController : NetworkBehaviour
     {
         playerArea = GameObject.Find("PlayerArea");
         enemyArea = GameObject.Find("EnemyArea");
-        // Verifique se os objetos foram encontrados
-        if (playerArea == null || enemyArea == null)
-        {
-            Debug.LogError("Áreas do jogo não foram encontradas na cena do jogo.");
-            return;
-        }
+
     }
 
 
@@ -72,6 +65,7 @@ public class PlayerController : NetworkBehaviour
         lobbyUIManager = FindObjectOfType<LobbyUIManager>();
         turnManager = FindObjectOfType<TurnController>();
         gameController = FindObjectOfType<GameController>();
+        turnManager.InitializeGameController(gameController);
         lobbyUIManager?.SetPlayerController(this);
     }
 
@@ -170,6 +164,12 @@ public class PlayerController : NetworkBehaviour
     [Command]
     void CmdPlayCard(GameObject card)
     {
+        Card cardComponent = card.GetComponent<Card>();
+        Carta carta = cardComponent.dadosCarta;
+        foreach (var efeito in carta.efeitos)
+        {
+            efeito.ApplyEffect(this, gameController);
+        }
         Debug.Log(card);
         Debug.Log("Carta Ativada e adicionada ao Descarte.");
     }
@@ -223,7 +223,7 @@ public class PlayerController : NetworkBehaviour
     }
     void OnTeamChanged(string oldTeam, string newTeam)
     {
-        // Atualiza o destaque na UI para o novo time
+        Debug.Log("testando");
         FindObjectOfType<LobbyUIManager>().UpdateTeamHighlight();
     }
 
@@ -268,6 +268,17 @@ public class PlayerController : NetworkBehaviour
         {
             gameController.StartGame();
         }
+    }
+
+    void OnAtributosVirusChanged(Virus oldAtributtes, Virus newAtributtes)
+    {
+        Debug.Log("entrei no Hook do virus");
+        //CmdAtualizarBases(newAtributtes);
+    }
+
+    void OnAtributosCuraChanged(Cura oldAtributtes, Cura newAtributtes)
+    {
+
     }
 
 }

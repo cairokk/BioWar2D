@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseController : NetworkBehaviour
 {
-    [SyncVar]public Base baseData;
+    public BaseClass regiao;
 
     public TextMeshProUGUI textoVida;
     public TextMeshProUGUI textoDanoFuturos;
@@ -16,23 +16,24 @@ public class BaseController : NetworkBehaviour
         InitializeBase();
     }
 
+
+
     private void InitializeBase()
     {
-
-        // Carrega os dados iniciais da base a partir de baseData
-        UpdateUI();
+        if (isServer)
+        {
+            RpcUpdateUI();
+        }
     }
 
-    public void TakeDamage(int damage)
-    {
-    
-    }
-
-    private void UpdateUI()
+    [ClientRpc]
+    public void RpcUpdateUI()
     {
         // Atualiza os textos com os valores dos atributos
-        textoVida.text = baseData.vida.ToString();
-        textoDanoFuturos.text =  baseData.DanoFuturo.ToString();
-        textoInfeccao.text = baseData.nivelInfecao.ToString();
+        textoVida.text = regiao.vida.ToString();
+        textoDanoFuturos.text = regiao.DanoFuturo.ToString();
+        textoInfeccao.text = regiao.nivelInfecao.ToString();
     }
+
+
 }

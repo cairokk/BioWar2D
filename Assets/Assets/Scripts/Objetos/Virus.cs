@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-[CreateAssetMenu(fileName = "DadosVirus", menuName = "Atributos do Virus")]
-public class Virus : ScriptableObject
+//[CreateAssetMenu(fileName = "DadosVirus", menuName = "Atributos do Virus")]
+public class Virus : NetworkBehaviour
 {
-    public int taxaDeInfeccao = 1;
-    public int taxaDeMortalidade = 0;
+    [SyncVar] public int taxaDeInfeccao = 1;
+    [SyncVar] public int taxaDeMortalidade = 1;
+
+
 
 }

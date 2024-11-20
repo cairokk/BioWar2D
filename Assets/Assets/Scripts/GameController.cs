@@ -7,7 +7,19 @@ public class GameController : NetworkBehaviour
     // Lista de objetos do lobby e do jogo
     private List<GameObject> lobbyComponents;
     private TurnController turnController;
-    private List<PlayerController> players = new List<PlayerController>();
+
+    [SerializeField] [SyncVar]
+    public Virus atributosVirus;
+
+    [SerializeField]
+    [SyncVar]
+    public Cura atributosCura;
+
+    private int populacaoMorta = 0;
+
+    private List<PlayerController> players = new();
+
+    public List<BaseController> bases = new();
 
     void Start()
     {
@@ -17,28 +29,12 @@ public class GameController : NetworkBehaviour
         turnController = FindObjectOfType<TurnController>();
     }
 
-    // [Command]
-    // public void CmdRequestStartGame()
-    // {
-    //     if (isServer)
-    //     {
-    //         players.AddRange(FindObjectsOfType<PlayerController>());
-
-    //         // Envia os jogadores para o TurnController e inicia o turno
-    //         if (turnController != null)
-    //         {
-    //             turnController.InitializePlayers(players);
-
-    //             turnController.StartTurn(TurnController.TurnState.TurnoVirus); // Começa com o turno do vírus
-    //         }
-    //     }
-
-    //     RpcStartGame();
-    // }
     public void StartGame()
     {
         players.AddRange(FindObjectsOfType<PlayerController>());
-        Debug.Log("entrei no gameController");
+        bases.AddRange(FindObjectsOfType<BaseController>());
+        IniciarRegioes();
+        turnController.InitializeGameController(this);
         // Envia os jogadores para o TurnController e inicia o turno
         if (turnController != null)
         {
@@ -63,6 +59,7 @@ public class GameController : NetworkBehaviour
                 player.CmdDealCards();
             }
         }
+
     }
     private void SetActiveComponents(List<GameObject> components, bool isActive)
     {
@@ -71,5 +68,50 @@ public class GameController : NetworkBehaviour
             component.SetActive(isActive);
         }
     }
+
+    public void OnAtributosVirusChanged(Virus novoVirus)
+    {
+        Debug.Log("entrei no Hook do virus");
+        RpcAtualizarBases(novoVirus);
+        RpcAtualizarAtributosCura(novoVirus);
+    }
+
+    public void OnAtributosCuraChanged(Cura novaCura)
+    {
+
+    }
+
+    [Command]
+    public void CmdAtualizarBases(Virus virus)
+    {
+        RpcAtualizarBases(virus);
+    }
+
+    [ClientRpc]
+    public void RpcAtualizarBases(Virus virus)
+    {
+        Debug.Log("entrei no RPC");
+        foreach (var componente in bases)
+        {
+            Debug.Log("entrei no FOR");
+            componente.regiao.CalcularDanoFuturo(virus);
+            componente.RpcUpdateUI();
+        }
+    }
+
+    [ClientRpc]
+    public void RpcAtualizarAtributosCura(Virus virus)
+    {
+        atributosCura.calcularFatorDeUrgencia(virus,populacaoMorta);
+    }
+
+    void IniciarRegioes(){
+        foreach (var componente in bases)
+        {
+            componente.RpcUpdateUI();
+        }
+    }
+
+
 
 }

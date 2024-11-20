@@ -53,15 +53,16 @@ MonoBehaviour:
   playerArea: {fileID: 0}
   enemyArea: {fileID: 0}
   dropZone: {fileID: 0}
-  virus: {fileID: 11400000, guid: 821959dd99150334fbbad54e4e85e250, type: 2}
-  Cura: {fileID: 11400000, guid: 32ce719479eb3da46a5ecadb1f3ceded, type: 2}
   deckVirus: {fileID: 11400000, guid: b55f701b15591a342a34ce84b2a985b8, type: 2}
   deckVacina: {fileID: 11400000, guid: 56ad3b9050fb3484d89a0d68570283b1, type: 2}
   playerDeck: []
   playerDiscarte: []
+  playerHand: []
   enemyDeck: []
   enemyDiscarte: []
   playerTeam: 
+  atributosVirus: {fileID: 0}
+  atributosCura: {fileID: 0}
   verificadorTime: 0
 --- !u!114 &-7872772411596167245
 MonoBehaviour:

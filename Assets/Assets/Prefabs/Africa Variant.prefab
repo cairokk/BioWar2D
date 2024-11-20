@@ -104,6 +104,18 @@ PrefabInstance:
       propertyPath: _assetId
       value: 525863399
       objectReference: {fileID: 0}
+    - target: {fileID: 6364911774879066653, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
+      propertyPath: vida
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364911774879066653, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
+      propertyPath: defesa
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364911774879066653, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
+      propertyPath: nomeBase
+      value: africa
+      objectReference: {fileID: 0}
     - target: {fileID: 7449285049490520331, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
       propertyPath: m_Points.Array.size
       value: 23
@@ -294,11 +306,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103608681780937987, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 19.5
+      value: 69
       objectReference: {fileID: 0}
     - target: {fileID: 8103608681780937987, guid: fc20ac63a823af244b1bd1fbea6217f3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 104
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
