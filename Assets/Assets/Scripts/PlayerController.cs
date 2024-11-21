@@ -107,43 +107,91 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void RpcDiscardCard(GameObject card)
     {
-        Destroy(card);
 
         if (isOwned)
         {
             playerHand.Remove(card);
             playerDiscarte.Add(card.GetComponent<Card>());
-            Destroy(card);
         }
         else
         {
             enemyDiscarte.Add(card.GetComponent<Card>());
-            Destroy(card);
         }
     }
+   [ClientRpc]
+    public void RpcMoveCardToHistory(GameObject card)
+    {
+        if (card == null)
+        {
+            Debug.LogError("Card is null! Cannot move to history.");
+            return;
+        }
+
+        GameObject historyContent = GameObject.Find("HistoryContent");
+        if (historyContent == null)
+        {
+            Debug.LogError("HistoryContent object not found!");
+            return;
+        }
+
+        // Flip a carta se estiver virada
+        var cardFlipper = card.GetComponent<CardFlipper>();
+        if (cardFlipper != null && cardFlipper.isVirada)
+        {
+            cardFlipper.Flip();
+            Debug.Log($"Carta {card.name} foi des-flipada para o histórico.");
+        }
+
+        // Move a carta para o histórico
+        card.transform.SetParent(historyContent.transform, false);
+        RectTransform rectTransform = card.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            rectTransform.localScale = Vector3.one;
+        }
+    }
+
     private void DiscardHand()
     {
-        Debug.Log("entrei no discardHand");
+        Debug.Log("entrei no DiscardHand");
+        List<GameObject> cardsToDestroy = new List<GameObject>();
+
         foreach (var card in playerHand)
         {
-            CmdDiscardCard(card);
+            // Verifica se a carta foi jogada
+            if (card.transform.parent.name == "PlayerArea")
+            {
+                // Carta não jogada, deve ser destruída
+                cardsToDestroy.Add(card);
+            }
+            else
+            {
+                // Carta jogada, deve ir ao histórico
+                CmdDiscardCard(card);
+            }
         }
+
+        // Destrói cartas restantes
+        foreach (var card in cardsToDestroy)
+        {
+            Destroy(card);
+        }
+
         playerHand.Clear(); // Limpa a mão do jogador
     }
 
     public bool PlayCard(GameObject card)
+{
+    if (turnManager != null && IsMyTurn())
     {
-        if (turnManager != null && IsMyTurn())
-        {
-            CmdPlayCard(card);
-            CmdDiscardCard(card);
-            return true;
-        }
-        else
-        {
-            Debug.Log("Não é o seu turno.");
-            return false;
-        }
+        CmdPlayCard(card); // Lida com a carta jogada
+        return true;
+    }
+    else
+    {
+        Debug.Log("Não é o seu turno.");
+        return false;
+    }
     }
 
     public bool IsMyTurn()
@@ -163,14 +211,20 @@ public class PlayerController : NetworkBehaviour
     [Command]
     void CmdPlayCard(GameObject card)
     {
+        if (card == null) return;
+
         Card cardComponent = card.GetComponent<Card>();
         Carta carta = cardComponent.dadosCarta;
+
+        // Aplica os efeitos da carta
         foreach (var efeito in carta.efeitos)
         {
             efeito.ApplyEffect(this, gameController);
         }
-        Debug.Log(card);
-        Debug.Log("Carta Ativada e adicionada ao Descarte.");
+
+        // Move para o histórico
+        RpcMoveCardToHistory(card);
+        Debug.Log("Carta movida para o histórico.");
     }
     // [Command]
     // void CmdDestroyCard(GameObject card)
