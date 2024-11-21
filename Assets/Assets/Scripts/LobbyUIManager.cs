@@ -17,22 +17,6 @@ public class LobbyUIManager : NetworkBehaviour
     [Scene]
     [Tooltip("Nome da cena para a qual todos os jogadores serão transportados")]
     public string targetScene;  // Nome da cena para a qual queremos transportar os jogadores
-    
-
-    public void OnButtonClicked()
-    {
-
-        GameObject player = GameObject.FindWithTag("Player");
-
-        if (player != null && isServer)
-        {
-            StartCoroutine(SendPlayerToNewScene(player));
-        }
-        else
-        {
-            Debug.LogWarning("Player object is not assigned or not on server.");
-        }
-    }
 
     void Start()
     {
@@ -83,29 +67,6 @@ public class LobbyUIManager : NetworkBehaviour
             // Defina uma cor para destacar e outra para quando estiver sem destaque
             regionImage.color = highlight ? Color.green : Color.white; // Altere as cores conforme necessário
         }
-    }
-
-    [ServerCallback]
-    IEnumerator SendPlayerToNewScene(GameObject player)
-    {
-        if (player.TryGetComponent<NetworkIdentity>(out NetworkIdentity identity))
-        {
-            NetworkConnectionToClient conn = identity.connectionToClient;
-            if (conn == null) yield break;
-
-            conn.Send(new SceneMessage { sceneName = this.gameObject.scene.path, sceneOperation = SceneOperation.UnloadAdditive, customHandling = true });
-
-            NetworkServer.RemovePlayerForConnection(conn, RemovePlayerOptions.Destroy);
-
-            SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByPath(targetScene));
-            conn.Send(new SceneMessage{sceneName = targetScene, sceneOperation = SceneOperation.LoadAdditive, customHandling = true});
-
-            NetworkServer.AddPlayerForConnection(conn,player);
-            
-        }
-
-
-
     }
 
 

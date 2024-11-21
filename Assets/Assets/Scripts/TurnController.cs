@@ -19,24 +19,25 @@ public class TurnController : NetworkBehaviour
     [SyncVar]
     public TurnState currentTurn;
 
-    [Server]
     public void StartTurn(TurnState turn)
     {
-        Debug.Log("entrei no StartTurn");
-
-        currentTurn = turn;
-        Debug.Log(turn);
-        switch (currentTurn)
         {
-            case TurnState.TurnoVirus:
-                RpcStartVirusTurn();
-                break;
-            case TurnState.TurnoCura:
-                RpcStartCuraTurn();
-                break;
-            case TurnState.EventosFinaisDeTurno:
-                RpcExecuteEndOfTurnEvents();
-                break;
+            Debug.Log("entrei no StartTurn" + turn);
+
+            currentTurn = turn;
+            Debug.Log(turn);
+            switch (currentTurn)
+            {
+                case TurnState.TurnoVirus:
+                    StartVirusTurn();
+                    break;
+                case TurnState.TurnoCura:
+                    StartCuraTurn();
+                    break;
+                case TurnState.EventosFinaisDeTurno:
+                    ExecuteEndOfTurnEvents();
+                    break;
+            }
         }
     }
 
@@ -50,8 +51,8 @@ public class TurnController : NetworkBehaviour
         this.gameController = gameController;
     }
 
-    [ClientRpc]
-    private void RpcStartVirusTurn()
+   
+    private void StartVirusTurn()
     {
 
         // Habilite o controle para o jogador do vírus
@@ -59,9 +60,8 @@ public class TurnController : NetworkBehaviour
         Debug.Log("É o turno do Vírus!");
 
     }
-
-    [ClientRpc]
-    private void RpcStartCuraTurn()
+ 
+    private void StartCuraTurn()
     {
 
         currentTurn = TurnState.TurnoCura;
@@ -69,34 +69,47 @@ public class TurnController : NetworkBehaviour
 
     }
 
-    [ClientRpc]
-    private void RpcExecuteEndOfTurnEvents()
+
+    private void ExecuteEndOfTurnEvents()
     {
 
         AplicarDanoAsRegioes(gameController.bases);
         AplicarAumentoDeInfeccao(gameController.bases);
         AplicarAvancoDaCura();
+        AtualizarRegioesUI(gameController.bases);
         CheckVictoryCondition(gameController.bases);
         StartTurn(TurnState.TurnoVirus); // Começa uma nova rodada
 
     }
 
-    private void AplicarDanoAsRegioes(List<BaseController> regioes){
-        foreach (var componente in regioes){
+    private void AplicarDanoAsRegioes(List<BaseController> regioes)
+    {
+        foreach (var componente in regioes)
+        {
             componente.regiao.CalcularDanoDaRodada();
         }
     }
 
-    private void AplicarAumentoDeInfeccao(List<BaseController> regioes){
-        foreach (var componente in regioes){
-            componente.regiao.CalcularNivelInfeccao(gameController.atributosVirus);
+    private void AtualizarRegioesUI(List<BaseController> regioes)
+    {
+        foreach (var componente in regioes)
+        {
+            componente.UpdateUI();
         }
     }
 
-    private void AplicarAvancoDaCura(){
-        gameController.atributosCura.calcularAvancoDaCura();
-    }
+    private void AplicarAumentoDeInfeccao(List<BaseController> regioes)
+    {
+        foreach (var componente in regioes)
+        {
+            componente.regiao.CalcularNivelInfeccao(gameController.atributosVirus);
+        }
 
+    }
+    private void AplicarAvancoDaCura()
+    {
+        gameController.atributosCura.CalcularAvancoDaCura();
+    }
     private void CheckVictoryCondition(List<BaseController> regioes)
     {
         bool virusWins = false;
@@ -125,7 +138,8 @@ public class TurnController : NetworkBehaviour
     [ClientRpc]
     public void RpcEndCurrentTurn()
     {
-        Debug.Log("Entrei no Rpc Dentro do TurnController");
+        Debug.Log("Entrei no Rpc Dentro do TurnController" + currentTurn);
+
         if (currentTurn == TurnState.TurnoVirus)
         {
             StartTurn(TurnState.TurnoCura);

@@ -13,7 +13,7 @@ public class BaseClass : NetworkBehaviour
 
     public void CalcularDanoFuturo(Virus virus)
     {
-        DanoFuturo +=  virus.taxaDeMortalidade * nivelInfecao * (10 - defesa) / 100;
+        DanoFuturo += virus.taxaDeMortalidade * nivelInfecao * (10 - defesa) / 100;
     }
 
     public void CalcularNivelInfeccao(Virus virus)
@@ -26,7 +26,7 @@ public class BaseClass : NetworkBehaviour
         Debug.Log(nivelInfecao);
     }
 
-     public void CalcularDanoDaRodada()
+    public void CalcularDanoDaRodada()
     {
         vida -= DanoFuturo;
     }

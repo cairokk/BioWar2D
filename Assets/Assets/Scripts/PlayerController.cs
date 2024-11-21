@@ -11,7 +11,6 @@ public class PlayerController : NetworkBehaviour
     public GameObject cartaVacina;
 
 
-
     public GameObject playerArea;
     public GameObject enemyArea;
     public GameObject dropZone;

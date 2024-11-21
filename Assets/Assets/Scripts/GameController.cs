@@ -8,7 +8,8 @@ public class GameController : NetworkBehaviour
     private List<GameObject> lobbyComponents;
     private TurnController turnController;
 
-    [SerializeField] [SyncVar]
+    [SerializeField]
+    [SyncVar]
     public Virus atributosVirus;
 
     [SerializeField]
@@ -29,6 +30,7 @@ public class GameController : NetworkBehaviour
         turnController = FindObjectOfType<TurnController>();
     }
 
+    [Server]
     public void StartGame()
     {
         players.AddRange(FindObjectsOfType<PlayerController>());
@@ -51,6 +53,7 @@ public class GameController : NetworkBehaviour
         Debug.Log("entrei no RpcStartGame");
 
         SetActiveComponents(lobbyComponents, false);
+        bases.AddRange(FindObjectsOfType<BaseController>());
         foreach (var player in FindObjectsOfType<PlayerController>())
         {
             Debug.Log("entrei no laço de geração de carta");
@@ -71,9 +74,10 @@ public class GameController : NetworkBehaviour
 
     public void OnAtributosVirusChanged(Virus novoVirus)
     {
-        Debug.Log("entrei no Hook do virus");
+        Debug.Log("Entrei dentro do GameController ai ativar a carta");
         RpcAtualizarBases(novoVirus);
         RpcAtualizarAtributosCura(novoVirus);
+
     }
 
     public void OnAtributosCuraChanged(Cura novaCura)
@@ -85,27 +89,34 @@ public class GameController : NetworkBehaviour
     public void CmdAtualizarBases(Virus virus)
     {
         RpcAtualizarBases(virus);
+        RpcAtualizarAtributosCura(virus);
+        // foreach (var componente in bases)
+        // {
+        //     componente.RpcUpdateUI();
+
+        // }
     }
 
     [ClientRpc]
     public void RpcAtualizarBases(Virus virus)
     {
-        Debug.Log("entrei no RPC");
-        foreach (var componente in bases)
+        Debug.Log("entrei no RPC de atualizar as bases");
+        foreach (var componente in FindObjectsOfType<BaseController>())
         {
-            Debug.Log("entrei no FOR");
+
             componente.regiao.CalcularDanoFuturo(virus);
-            componente.RpcUpdateUI();
+            componente.UpdateUI();
         }
     }
 
     [ClientRpc]
     public void RpcAtualizarAtributosCura(Virus virus)
     {
-        atributosCura.calcularFatorDeUrgencia(virus,populacaoMorta);
+        atributosCura.CalcularFatorDeUrgencia(virus, populacaoMorta);
     }
 
-    void IniciarRegioes(){
+    void IniciarRegioes()
+    {
         foreach (var componente in bases)
         {
             componente.RpcUpdateUI();

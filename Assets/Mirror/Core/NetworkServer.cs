@@ -339,7 +339,7 @@ namespace Mirror
                         if (msg.componentIndex < netIdentity.NetworkBehaviours.Length && netIdentity.NetworkBehaviours[msg.componentIndex] is NetworkBehaviour component)
                             if (RemoteProcedureCalls.GetFunctionMethodName(msg.functionHash, out string methodName))
                             {
-                                Debug.LogWarning($"Command {methodName} received for {netIdentity.name} [netId={msg.netId}] component {component.name} [index={msg.componentIndex}] when client not ready.\nThis may be ignored if client intentionally set NotReady.");
+                                //Debug.LogWarning($"Command {methodName} received for {netIdentity.name} [netId={msg.netId}] component {component.name} [index={msg.componentIndex}] when client not ready.\nThis may be ignored if client intentionally set NotReady.");
                                 return;
                             }
 
