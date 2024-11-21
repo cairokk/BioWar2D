@@ -22,6 +22,8 @@ public class GameController : NetworkBehaviour
 
     public List<BaseController> bases = new();
 
+
+    
     void Start()
     {
         // Coleta todos os objetos do lobby e do jogo usando as tags
@@ -80,10 +82,7 @@ public class GameController : NetworkBehaviour
 
     }
 
-    public void OnAtributosCuraChanged(Cura novaCura)
-    {
 
-    }
 
     [Command]
     public void CmdAtualizarBases(Virus virus)
