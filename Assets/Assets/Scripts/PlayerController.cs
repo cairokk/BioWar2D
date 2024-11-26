@@ -127,7 +127,7 @@ public class PlayerController : NetworkBehaviour
         foreach (var card in playerHand)
         {
             CmdDiscardCard(card);
-        }
+        } 
         playerHand.Clear(); // Limpa a mão do jogador
     }
 

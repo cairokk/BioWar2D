@@ -5,9 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
+using DG.Tweening; // Certifique-se de importar o namespace DoTween
 public class LobbyUIManager : NetworkBehaviour
 {
+    public AudioSource audioSource; // Referência ao AudioSource
+    public AudioClip switchSound;   // Som do botão
     public Button switchTeamButton;
     public Button inciarJogo;
     private PlayerController playerController;
@@ -31,17 +33,21 @@ public class LobbyUIManager : NetworkBehaviour
 
 
     void OnSwitchTeamClicked()
+{
+    if (audioSource != null && switchSound != null)
     {
-
-        if (playerController != null)
-        {
-            playerController.CmdSwitchTeamsForAll();
-        }
-        else
-        {
-            Debug.LogWarning("PlayerController não encontrado!");
-        }
+        audioSource.PlayOneShot(switchSound); // Toca o som ao pressionar o botão
     }
+
+    if (playerController != null)
+    {
+        playerController.CmdSwitchTeamsForAll();
+    }
+    else
+    {
+        Debug.LogWarning("PlayerController não encontrado!");
+    }
+}
 
     public void UpdateTeamHighlight()
     {
@@ -59,15 +65,30 @@ public class LobbyUIManager : NetworkBehaviour
         }
     }
 
-    private void HighlightRegion(GameObject region, bool highlight)
+
+private void HighlightRegion(GameObject region, bool highlight)
+{
+    RectTransform rectTransform = region.GetComponent<RectTransform>();
+    Image regionImage = region.GetComponent<Image>();
+
+    if (rectTransform != null)
     {
-        Image regionImage = region.GetComponent<Image>();
-        if (regionImage != null)
-        {
-            // Defina uma cor para destacar e outra para quando estiver sem destaque
-            regionImage.color = highlight ? Color.green : Color.white; // Altere as cores conforme necessário
-        }
+        Vector3 targetScale = highlight ? new Vector3(1.05f, 1.05f, 1f) : Vector3.one;
+        float duration = 0.3f;
+
+        rectTransform.DOScale(targetScale, duration).SetEase(Ease.OutBack); // Animação suave de escala
     }
+
+    if (regionImage != null)
+    {
+        float targetAlpha = highlight ? 1f : 0.6f; // 1 para visível, 0.6 para semidirecionado
+        float duration = 0.3f;
+
+        // Interpolação suave da opacidade usando DOFade
+        regionImage.DOFade(targetAlpha, duration);
+    }
+}
+
 
 
 }
