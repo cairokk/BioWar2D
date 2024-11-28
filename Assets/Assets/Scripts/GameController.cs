@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Collections;
 
 public class GameController : NetworkBehaviour
 {
@@ -22,8 +23,17 @@ public class GameController : NetworkBehaviour
 
     public List<BaseController> bases = new();
 
+    public List<int> playerVirusDeck = new();
+    public List<int> playerVacinaDeck = new();
 
-    
+    public List<int> playerVirusDiscarte = new();
+    public List<int> playerVacinaDiscarte = new();
+
+    public Deck deckVirus;
+    public Deck deckVacina;
+
+
+
     void Start()
     {
         // Coleta todos os objetos do lobby e do jogo usando as tags
@@ -43,26 +53,28 @@ public class GameController : NetworkBehaviour
         if (turnController != null)
         {
             turnController.InitializePlayers(players);
-
             turnController.StartTurn(TurnController.TurnState.TurnoVirus); // Começa com o turno do vírus
         }
+
+        playerVacinaDeck.AddRange(deckVacina.initialDeck);
+        playerVirusDeck.AddRange(deckVirus.initialDeck);
+
 
         RpcStartGame();
     }
     [ClientRpc]
     void RpcStartGame()
     {
-        Debug.Log("entrei no RpcStartGame");
-
         SetActiveComponents(lobbyComponents, false);
         bases.AddRange(FindObjectsOfType<BaseController>());
+        playerVacinaDeck.AddRange(deckVacina.initialDeck);
+        playerVirusDeck.AddRange(deckVirus.initialDeck);
         foreach (var player in FindObjectsOfType<PlayerController>())
         {
-            Debug.Log("entrei no laço de geração de carta");
-            if (player.isLocalPlayer)
-            {
-                player.CmdDealCards();
-            }
+
+            player.AtualizarUIBaralhos();
+            player.CmdDealCards();
+
         }
 
     }
@@ -76,7 +88,6 @@ public class GameController : NetworkBehaviour
 
     public void OnAtributosVirusChanged(Virus novoVirus)
     {
-        Debug.Log("Entrei dentro do GameController ai ativar a carta");
         RpcAtualizarBases(novoVirus);
         RpcAtualizarAtributosCura(novoVirus);
 
@@ -89,17 +100,11 @@ public class GameController : NetworkBehaviour
     {
         RpcAtualizarBases(virus);
         RpcAtualizarAtributosCura(virus);
-        // foreach (var componente in bases)
-        // {
-        //     componente.RpcUpdateUI();
-
-        // }
     }
 
     [ClientRpc]
     public void RpcAtualizarBases(Virus virus)
     {
-        Debug.Log("entrei no RPC de atualizar as bases");
         foreach (var componente in FindObjectsOfType<BaseController>())
         {
 

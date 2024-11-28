@@ -23,7 +23,6 @@ public class BaseClass : NetworkBehaviour
         {
             nivelInfecao = novoNivelDeInfeccao;
         }
-        Debug.Log(nivelInfecao);
     }
 
     public void CalcularDanoDaRodada()

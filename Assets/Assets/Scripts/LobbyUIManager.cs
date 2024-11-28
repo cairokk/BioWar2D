@@ -39,7 +39,6 @@ public class LobbyUIManager : NetworkBehaviour
         }
         else
         {
-            Debug.LogWarning("PlayerController não encontrado!");
         }
     }
 

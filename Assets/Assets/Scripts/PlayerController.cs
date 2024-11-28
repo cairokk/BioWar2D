@@ -7,22 +7,16 @@ public class PlayerController : NetworkBehaviour
 {
 
 
-    public GameObject cartaVirus;
-    public GameObject cartaVacina;
+    public GameObject prefabVirus;
+    public GameObject prefabVacina;
 
 
     public GameObject playerArea;
     public GameObject enemyArea;
     public GameObject dropZone;
 
-    public Deck deckVirus;
-    public Deck deckVacina;
-    [SyncVar] public List<Card> playerDeck = new();
-    [SyncVar] public List<Card> playerDiscarte = new();
-    [SyncVar] public List<GameObject> playerHand = new List<GameObject>();
-    [SyncVar] public List<Card> enemyDeck = new();
-    [SyncVar] public List<Card> enemyDiscarte = new();
 
+    [SyncVar] public List<GameObject> playerHand = new List<GameObject>();
     [SyncVar(hook = nameof(OnTeamChanged))]
     public string playerTeam;
 
@@ -35,6 +29,8 @@ public class PlayerController : NetworkBehaviour
     private GameController gameController;
 
     LobbyUIManager lobbyUIManager;
+
+    GameUIManager gameUIManager;
 
     private bool isGameSceneLoaded = false;
 
@@ -53,6 +49,8 @@ public class PlayerController : NetworkBehaviour
         lobbyUIManager = FindObjectOfType<LobbyUIManager>();
         turnManager = FindObjectOfType<TurnController>();
         gameController = FindObjectOfType<GameController>();
+        gameUIManager = FindObjectOfType<GameUIManager>();
+
 
     }
 
@@ -61,69 +59,97 @@ public class PlayerController : NetworkBehaviour
         base.OnStartLocalPlayer();
         DontDestroyOnLoad(this);
         InitializeGameObjects();
+
         lobbyUIManager = FindObjectOfType<LobbyUIManager>();
+        lobbyUIManager?.SetPlayerController(this);
         turnManager = FindObjectOfType<TurnController>();
         gameController = FindObjectOfType<GameController>();
+        gameUIManager = FindObjectOfType<GameUIManager>();
         turnManager.InitializeGameController(gameController);
-        lobbyUIManager?.SetPlayerController(this);
     }
 
     [Command]
     public void CmdDealCards()
     {
+        GameObject prefab = playerTeam == "vacina" ? prefabVacina : prefabVirus;
 
         for (int i = 0; i < 5; i++)
         {
-            if (playerTeam == "vacina")
-            {
-                Debug.Log("Entrou na Vacina");
-                Carta drawnCard = deckVacina.initialDeck[0];
-                GameObject newCard = Instantiate(cartaVacina, new Vector2(0, 0), Quaternion.identity);
-                Card carta = newCard.GetComponent<Card>();
-                carta.UpdateCard(drawnCard);
-                NetworkServer.Spawn(newCard, connectionToClient);
-                RpcShowCards(newCard, "Dealt");
-            }
+            int idCarta = DrawCard();
 
-            if (playerTeam == "virus")
-            {
-                Debug.Log("Entrou aqui no virus");
-                Carta drawnCard = deckVirus.initialDeck[0];
-                GameObject newCard = Instantiate(cartaVirus, new Vector2(0, 0), Quaternion.identity);
-                Card carta = newCard.GetComponent<Card>();
-                carta.UpdateCard(drawnCard);
-                NetworkServer.Spawn(newCard, connectionToClient);
-                RpcShowCards(newCard, "Dealt");
-            }
+            Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
+            GameObject newCard = Instantiate(prefab, new Vector2(0, 0), Quaternion.identity);
+            Card carta = newCard.GetComponent<Card>();
+            carta.UpdateCard(drawnCard);
+            NetworkServer.Spawn(newCard, connectionToClient);
+            RpcShowCards(newCard, "Dealt");
+
+
         }
     }
 
-    [Command]
-    public void CmdDiscardCard(GameObject card)
+    int DrawCard()
     {
-        RpcDiscardCard(card);
-    }
-
-    [ClientRpc]
-    public void RpcDiscardCard(GameObject card)
-    {
-        Destroy(card);
-
-        if (isOwned)
+        Debug.Log("Etnrei no DrawCard");
+        if (playerTeam == "vacina")
         {
-            playerHand.Remove(card);
-            playerDiscarte.Add(card.GetComponent<Card>());
-            Destroy(card);
+            if (gameController.playerVacinaDeck.Count == 0)
+            {
+                Debug.Log("Etnrei no deck zero da vacina");
+
+                // Reembaralhar descarte no deck
+                gameController.playerVacinaDeck.AddRange(gameController.playerVacinaDiscarte);
+                gameController.playerVacinaDiscarte.Clear();
+                //ShuffleDeck(gameController.playerVacinaDeck);
+            }
+
+            int cardId = gameController.playerVacinaDeck[0];
+            gameController.playerVacinaDeck.RemoveAt(0);// Remove a carta do topo
+            RpcAtualizarBaralhos(gameController.playerVirusDeck, gameController.playerVacinaDeck, gameController.playerVacinaDiscarte, gameController.playerVirusDiscarte);
+            return cardId;
         }
         else
         {
-            enemyDiscarte.Add(card.GetComponent<Card>());
-            Destroy(card);
+            if (gameController.playerVirusDeck.Count == 0)
+            {
+                Debug.Log("Etnrei no deck zero da Virus");
+                // Reembaralhar descarte no deck
+                gameController.playerVirusDeck.AddRange(gameController.playerVirusDiscarte);
+                gameController.playerVirusDiscarte.Clear();
+                //ShuffleDeck(gameController.playerVirusDeck);
+            }
+
+            int cardId = gameController.playerVirusDeck[0];
+            gameController.playerVirusDeck.RemoveAt(0);
+            RpcAtualizarBaralhos(gameController.playerVirusDeck, gameController.playerVacinaDeck, gameController.playerVacinaDiscarte, gameController.playerVirusDiscarte);
+            return cardId;
         }
     }
+
+    [ClientRpc]
+    public void RpcAtualizarBaralhos(List<int> VirusDeck, List<int> VacinaDeck, List<int> VacinaDiscarte, List<int> VirusDiscarte)
+    {
+        gameController.playerVacinaDeck = VacinaDeck;
+        gameController.playerVirusDeck = VirusDeck;
+        gameController.playerVacinaDiscarte = VacinaDiscarte;
+        gameController.playerVirusDiscarte = VirusDiscarte;
+
+        AtualizarUIBaralhos();
+    }
+
+    List<int> ShuffleDeck(List<int> deck)
+    {
+        for (int i = deck.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            (deck[randomIndex], deck[i]) = (deck[i], deck[randomIndex]);
+        }
+        return deck;
+    }
+
+
     private void DiscardHand()
     {
-        Debug.Log("entrei no discardHand");
         foreach (var card in playerHand)
         {
             CmdDiscardCard(card);
@@ -141,9 +167,48 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            Debug.Log("Não é o seu turno.");
             return false;
         }
+    }
+
+    [Command]
+    public void CmdDiscardCard(GameObject card)
+    {
+        Debug.Log(card == null);
+        Debug.Log("Etnrei no CmdDiscardCard");  
+        int cartaId = card.GetComponent<Card>().dadosCarta.id;
+        if (playerTeam == "virus")
+        {
+            gameController.playerVirusDiscarte.Add(cartaId);
+        }
+        else
+        {
+            gameController.playerVacinaDiscarte.Add(cartaId);
+        }
+
+        RpcDiscardCard(card);
+    }
+
+    [ClientRpc]
+    public void RpcDiscardCard(GameObject card)
+    {
+        Destroy(card);
+        Debug.Log("Entrei no metodo RPC de discartar uma carta");
+        if (isOwned){
+            playerHand.Remove(card);
+        }
+
+        int cartaId = card.GetComponent<Card>().dadosCarta.id;
+        if (playerTeam == "virus")
+        {
+            gameController.playerVirusDiscarte.Add(cartaId);
+        }
+        else
+        {
+            gameController.playerVacinaDiscarte.Add(cartaId);
+        }
+
+        AtualizarUIBaralhos();
     }
 
     public bool IsMyTurn()
@@ -167,7 +232,7 @@ public class PlayerController : NetworkBehaviour
         Carta carta = cardComponent.dadosCarta;
         foreach (var efeito in carta.efeitos)
         {
-            efeito.ApplyEffect(this, gameController);
+            //efeito.ApplyEffect(this, gameController);
         }
         Debug.Log(card);
         Debug.Log("Carta Ativada e adicionada ao Descarte.");
@@ -184,7 +249,6 @@ public class PlayerController : NetworkBehaviour
 
         while (playerArea == null || enemyArea == null)
         {
-            Debug.LogWarning("Áreas do jogo ainda não foram inicializadas.");
             InitializeGameObjects();  // Tenta inicializar novamente, caso não tenha sido feito
         }
 
@@ -222,15 +286,12 @@ public class PlayerController : NetworkBehaviour
     }
     void OnTeamChanged(string oldTeam, string newTeam)
     {
-        Debug.Log("testando");
         FindObjectOfType<LobbyUIManager>().UpdateTeamHighlight();
     }
 
     public void EndTurn()
     {
-        Debug.Log("Player clicou no fim de turno");
-        Debug.Log("É o turno do player?");
-        Debug.Log(IsMyTurn());
+
         if (turnManager != null && IsMyTurn())
         {
             DiscardHand();
@@ -246,7 +307,6 @@ public class PlayerController : NetworkBehaviour
 
         if (turnManager != null)
         {
-            Debug.Log("o turnManager nao é nulo na hora de encerrar o turno");
             turnManager.RpcEndCurrentTurn();
         }
     }
@@ -254,15 +314,13 @@ public class PlayerController : NetworkBehaviour
 
     public void StartGame()
     {
-        Debug.Log("entrei no StartGame dentro da PlayerController");
         CmdStartGame();
     }
 
     [Command]
     public void CmdStartGame()
     {
-        Debug.Log("entrei no CmdStartGame dentro da PlayerController");
-        Debug.Log(turnManager == null);
+
         if (turnManager != null)
         {
             gameController.StartGame();
@@ -271,7 +329,6 @@ public class PlayerController : NetworkBehaviour
 
     void OnAtributosVirusChanged(Virus oldAtributtes, Virus newAtributtes)
     {
-        Debug.Log("entrei no Hook do virus");
         //CmdAtualizarBases(newAtributtes);
     }
 
@@ -279,5 +336,61 @@ public class PlayerController : NetworkBehaviour
     {
 
     }
+
+    [ClientRpc]
+    void RpcAtualizarUIBaralhos()
+    {
+        Debug.Log("Entrei no metodo RPC de atualizar UI Baralhos");
+
+        AtualizarUIBaralhos();
+    }
+    public void AtualizarUIBaralhos()
+    {
+        Debug.Log("Entrei no metodo local de atualizar UI Baralhos");
+        gameUIManager = FindObjectOfType<GameUIManager>();
+        gameController = FindObjectOfType<GameController>();
+        int playerDeckCount, playerDiscarteCount, enemyDiscarteCount, enemyDeckCount;
+        if (isOwned)
+        {
+            Debug.Log("Entrei Dentro dos IsOwned do atualizarBaralho");
+
+            if (playerTeam == "virus")
+            {
+                playerDeckCount = gameController.playerVirusDeck.Count;
+                playerDiscarteCount = gameController.playerVirusDiscarte.Count;
+                enemyDeckCount = gameController.playerVacinaDeck.Count;
+                enemyDiscarteCount = gameController.playerVacinaDiscarte.Count;
+            }
+            else
+            {
+                playerDeckCount = gameController.playerVacinaDeck.Count;
+                playerDiscarteCount = gameController.playerVacinaDiscarte.Count;
+                enemyDeckCount = gameController.playerVirusDeck.Count;
+                enemyDiscarteCount = gameController.playerVirusDiscarte.Count;
+            }
+        }
+        else
+        {
+            Debug.Log("Entrei Dentro do else do  IsOwned do atualizarBaralho");
+            if (playerTeam == "virus")
+            {
+                playerDeckCount = gameController.playerVacinaDeck.Count;
+                playerDiscarteCount = gameController.playerVacinaDiscarte.Count;
+                enemyDeckCount = gameController.playerVirusDeck.Count;
+                enemyDiscarteCount = gameController.playerVirusDiscarte.Count;
+
+            }
+            else
+            {
+                playerDeckCount = gameController.playerVirusDeck.Count;
+                playerDiscarteCount = gameController.playerVirusDiscarte.Count;
+                enemyDeckCount = gameController.playerVacinaDeck.Count;
+                enemyDiscarteCount = gameController.playerVacinaDiscarte.Count;
+            }
+        }
+        gameUIManager.UpdateUI(playerDeckCount, playerDiscarteCount, enemyDeckCount, enemyDiscarteCount);
+
+    }
+
 
 }

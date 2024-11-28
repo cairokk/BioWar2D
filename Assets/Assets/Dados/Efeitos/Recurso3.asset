@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e339b13136c806b4db4d10da86e2b487, type: 3}
   m_Name: Recurso3
   m_EditorClassIdentifier: 
+  id: 2
   qtdRecurso: 3

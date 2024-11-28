@@ -6,6 +6,10 @@ public class GameUIManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI curaText;
     [SerializeField] private TextMeshProUGUI virusText;
+    [SerializeField] private TextMeshProUGUI playerDeck;
+    [SerializeField] private TextMeshProUGUI playerDiscarte;
+    [SerializeField] private TextMeshProUGUI enemyDeck;
+    [SerializeField] private TextMeshProUGUI enemyDiscarte;
 
     private GameController gameController;
     private string lastCuraText = "";
@@ -50,5 +54,15 @@ public class GameUIManager : MonoBehaviour
                 lastVirusText = newVirusText;
             }
         }
+    }
+
+    public void UpdateUI(int playerDeck, int playerDiscarte, int enemyDeck, int enemyDiscarte)
+    {
+        Debug.Log("Atualizei a interface dos baralhos");
+
+        this.playerDeck.text = playerDeck.ToString();
+        this.playerDiscarte.text = playerDiscarte.ToString();
+        this.enemyDeck.text = enemyDeck.ToString();
+        this.enemyDiscarte.text = enemyDiscarte.ToString();
     }
 }

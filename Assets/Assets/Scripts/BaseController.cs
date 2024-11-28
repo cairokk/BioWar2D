@@ -29,7 +29,6 @@ public class BaseController : NetworkBehaviour
     [ClientRpc]
     public void RpcUpdateUI()
     {
-        Debug.Log("entrei no RPC de atualizar a base");
         textoVida.text = regiao.vida.ToString();
         textoDanoFuturos.text = regiao.DanoFuturo.ToString();
         textoInfeccao.text = regiao.nivelInfecao.ToString();
@@ -37,7 +36,6 @@ public class BaseController : NetworkBehaviour
 
     public void UpdateUI()
     {
-        Debug.Log("entrei no RPC de atualizar a base");
         textoVida.text = regiao.vida.ToString();
         textoDanoFuturos.text = regiao.DanoFuturo.ToString();
         textoInfeccao.text = regiao.nivelInfecao.ToString();

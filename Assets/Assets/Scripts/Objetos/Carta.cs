@@ -11,6 +11,6 @@ public class Carta : ScriptableObject
     public string descricao;
     public int custo;
     public Sprite imagem;
-    public List<CartaEfeito> efeitos = new List<CartaEfeito>();
+    public List<int> efeitos = new();
 
 }

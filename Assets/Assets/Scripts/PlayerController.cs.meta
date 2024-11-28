@@ -3,7 +3,14 @@ guid: e337b19fd776bec4f95b03913699c403
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - cartaVirus: {instanceID: 0}
+  - cartaVacina: {instanceID: 0}
+  - playerArea: {instanceID: 0}
+  - enemyArea: {instanceID: 0}
+  - dropZone: {instanceID: 0}
+  - deckVirus: {fileID: 11400000, guid: b55f701b15591a342a34ce84b2a985b8, type: 2}
+  - deckVacina: {fileID: 11400000, guid: 56ad3b9050fb3484d89a0d68570283b1, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
