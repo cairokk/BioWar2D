@@ -85,7 +85,6 @@ public class Card : NetworkBehaviour
         {
             if (player.PlayCard(gameObject))
             {
-                Debug.Log("Carta ativada!!!!!!!");
                 Destroy(gameObject, 0.5f);
             }
         }

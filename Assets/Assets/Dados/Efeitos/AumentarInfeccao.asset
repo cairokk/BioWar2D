@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7fa5c5823f0cdc46b2371e0b0993f0a, type: 3}
   m_Name: AumentarInfeccao
   m_EditorClassIdentifier: 
+  id: 1
   qtdInfeccao: 2

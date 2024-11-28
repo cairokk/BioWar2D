@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc3c53fc97290d4a86509b912996961, type: 3}
   m_Name: DeckCura
   m_EditorClassIdentifier: 
-  initialDeck:
-  - {fileID: 11400000, guid: dcbc77fad8ede3946b0eaa89f69ceb53, type: 2}
+  initialDeck: 65000000650000006500000065000000650000006500000065000000650000006500000065000000

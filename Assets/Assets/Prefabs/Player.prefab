@@ -48,8 +48,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  cartaVirus: {fileID: 7899667507097016990, guid: 465f30cb3d3f79c4ba4a93d4ca6d6f71, type: 3}
-  cartaVacina: {fileID: 2278849242409018652, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+  prefabVirus: {fileID: 7899667507097016990, guid: 465f30cb3d3f79c4ba4a93d4ca6d6f71, type: 3}
+  prefabVacina: {fileID: 2278849242409018652, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
   playerArea: {fileID: 0}
   enemyArea: {fileID: 0}
   dropZone: {fileID: 0}
@@ -61,8 +61,6 @@ MonoBehaviour:
   enemyDeck: []
   enemyDiscarte: []
   playerTeam: 
-  atributosVirus: {fileID: 0}
-  atributosCura: {fileID: 0}
   verificadorTime: 0
 --- !u!114 &-7872772411596167245
 MonoBehaviour:

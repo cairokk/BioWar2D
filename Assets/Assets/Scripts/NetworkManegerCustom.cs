@@ -20,10 +20,8 @@ public class NetworkManegerCustom : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        Debug.LogWarning("Começou conexao");
         if (conn.identity != null)
         {
-            Debug.LogWarning("Já existe um jogador para essa conexão.");
             return;
         }
 
@@ -41,12 +39,7 @@ public class NetworkManegerCustom : NetworkManager
             player.playerTeam = "virus";
             virusCount++;
         }
-        Debug.LogWarning("chamou servico para adicionar conexao");
-        Debug.LogWarning(conn == null);
-        Debug.LogWarning(playerObject == null);
-
         NetworkServer.AddPlayerForConnection(conn, playerObject);
-        Debug.LogWarning("terminou");
     }
 
     public override void OnServerDisconnect(NetworkConnectionToClient conn)

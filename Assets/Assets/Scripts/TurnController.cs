@@ -22,10 +22,8 @@ public class TurnController : NetworkBehaviour
     public void StartTurn(TurnState turn)
     {
         {
-            Debug.Log("entrei no StartTurn" + turn);
 
             currentTurn = turn;
-            Debug.Log(turn);
             switch (currentTurn)
             {
                 case TurnState.TurnoVirus:
@@ -57,7 +55,6 @@ public class TurnController : NetworkBehaviour
 
         // Habilite o controle para o jogador do vírus
         currentTurn = TurnState.TurnoVirus;
-        Debug.Log("É o turno do Vírus!");
 
     }
  
@@ -65,7 +62,6 @@ public class TurnController : NetworkBehaviour
     {
 
         currentTurn = TurnState.TurnoCura;
-        Debug.Log("É o turno da Cura!");
 
     }
 
@@ -138,7 +134,6 @@ public class TurnController : NetworkBehaviour
     [ClientRpc]
     public void RpcEndCurrentTurn()
     {
-        Debug.Log("Entrei no Rpc Dentro do TurnController" + currentTurn);
 
         if (currentTurn == TurnState.TurnoVirus)
         {

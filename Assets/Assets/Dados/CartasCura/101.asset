@@ -17,5 +17,4 @@ MonoBehaviour:
   descricao: "Gera 1 de recurso cient\xEDfico"
   custo: 3
   imagem: {fileID: 21300000, guid: 2bb46e345aa0cb04aa67328b8f45ad1f, type: 3}
-  efeitos:
-  - {fileID: 11400000, guid: 50394802f3412844f837e9dda92624fc, type: 2}
+  efeitos: 01000000

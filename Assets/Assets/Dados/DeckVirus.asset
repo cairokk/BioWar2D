@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc3c53fc97290d4a86509b912996961, type: 3}
   m_Name: DeckVirus
   m_EditorClassIdentifier: 
-  initialDeck:
-  - {fileID: 11400000, guid: 204a9d5a99a991047bc2dcc49ac922ae, type: 2}
+  initialDeck: 01000000010000000100000001000000010000000100000001000000010000000100000001000000
