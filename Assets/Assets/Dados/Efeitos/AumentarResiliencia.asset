@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbc3c53fc97290d4a86509b912996961, type: 3}
-  m_Name: DeckCura
+  m_Script: {fileID: 11500000, guid: 7d3e8dd76f0869649b4c007c809bfdd8, type: 3}
+  m_Name: AumentarResiliencia
   m_EditorClassIdentifier: 
-  initialDeck: 65000000660000006600000067000000670000006500000066000000660000006700000065000000
+  id: 3
+  qtdResiliencia: 2

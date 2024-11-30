@@ -11,6 +11,8 @@ public class Cura : NetworkBehaviour
     [SyncVar(hook = nameof(OnFatorUrgenciaChanged))] public int fatorDeUrgencia = 1;
     [SyncVar(hook = nameof(OnAvancoCuraChanged))] public int avancoDaCura = 0;
 
+    [SyncVar] public int recurso = 0;
+
     public delegate void AtributoCuraChanged();
     public event AtributoCuraChanged OnCuraChanged;   
      private void OnTaxaCuraChanged(int oldValue, int newValue)

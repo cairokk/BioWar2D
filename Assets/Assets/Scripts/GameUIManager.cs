@@ -34,7 +34,8 @@ public class GameUIManager : MonoBehaviour
             string newCuraText = $"Taxa de Cura: {gameController.atributosCura.taxaDacura}\n" +
                                  $"Taxa de Pesquisa: {gameController.atributosCura.taxaDePesquisa}\n" +
                                  $"Fator de Urgência: {gameController.atributosCura.fatorDeUrgencia}\n" +
-                                 $"Avanço da Cura: {gameController.atributosCura.avancoDaCura}";
+                                 $"Avanço da Cura: {gameController.atributosCura.avancoDaCura}\n" + 
+                                 $"Quantidade de Recurso: {gameController.atributosCura.recurso}";
 
             if (newCuraText != lastCuraText)
             {
@@ -47,7 +48,8 @@ public class GameUIManager : MonoBehaviour
         if (gameController != null && gameController.atributosVirus != null)
         {
             string newVirusText = $"Taxa de Mortalidade: {gameController.atributosVirus.taxaDeMortalidade}\n" +
-                                  $"Taxa de Infecção: {gameController.atributosVirus.taxaDeInfeccao}\n";
+                                  $"Taxa de Infecção: {gameController.atributosVirus.taxaDeInfeccao}\n" + 
+                                 $"Quantidade de Recurso: {gameController.atributosVirus.recurso}";
             if (newVirusText != lastVirusText)
             {
                 virusText.text = newVirusText;

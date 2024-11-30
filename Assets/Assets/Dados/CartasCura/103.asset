@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbc3c53fc97290d4a86509b912996961, type: 3}
-  m_Name: DeckCura
+  m_Script: {fileID: 11500000, guid: d5fe8671b8de8d546982921b3891f020, type: 3}
+  m_Name: 103
   m_EditorClassIdentifier: 
-  initialDeck: 65000000660000006600000067000000670000006500000066000000660000006700000065000000
+  id: 103
+  nome: Pesquisa
+  descricao: "Gera 2 de recurso cient\xEDfico"
+  custo: 0
+  imagem: {fileID: 0}
+  efeitos: 04000000

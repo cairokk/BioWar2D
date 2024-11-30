@@ -32,6 +32,8 @@ public class GameController : NetworkBehaviour
     public Deck deckVirus;
     public Deck deckVacina;
 
+    public bool selecionandoBase = false;
+    public string baseSelecionada = "";
 
 
     void Start()
@@ -92,8 +94,6 @@ public class GameController : NetworkBehaviour
         RpcAtualizarAtributosCura(novoVirus);
 
     }
-
-
 
     [Command]
     public void CmdAtualizarBases(Virus virus)

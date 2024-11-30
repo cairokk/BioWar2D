@@ -11,7 +11,6 @@ public class AumentarInfeccao : CartaEfeito
     {
         int taxaDeInfeccao = gameController.atributosVirus.taxaDeInfeccao;
         gameController.atributosVirus.taxaDeInfeccao = taxaDeInfeccao > 10 ? taxaDeInfeccao : taxaDeInfeccao + qtdInfeccao;
-        gameController.atributosVirus.taxaDeMortalidade += 1;
         gameController.OnAtributosVirusChanged(gameController.atributosVirus);
         Debug.Log($"{player.name} aumentou {qtdInfeccao} de infecção.");
     }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -80,9 +79,10 @@ public class PlayerController : NetworkBehaviour
             Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
             GameObject newCard = Instantiate(prefab, new Vector2(0, 0), Quaternion.identity);
             Card carta = newCard.GetComponent<Card>();
+            carta.dadosCarta = drawnCard;
             carta.UpdateCard(drawnCard);
             NetworkServer.Spawn(newCard, connectionToClient);
-            RpcShowCards(newCard, "Dealt");
+            RpcShowCards(idCarta, newCard, "Dealt");
 
 
         }
@@ -93,6 +93,7 @@ public class PlayerController : NetworkBehaviour
         Debug.Log("Etnrei no DrawCard");
         if (playerTeam == "vacina")
         {
+            Debug.Log("Etnrei no Deck da Vacina");
             if (gameController.playerVacinaDeck.Count == 0)
             {
                 Debug.Log("Etnrei no deck zero da vacina");
@@ -110,6 +111,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
+            Debug.Log("Etnrei no Deck da Virus");
             if (gameController.playerVirusDeck.Count == 0)
             {
                 Debug.Log("Etnrei no deck zero da Virus");
@@ -153,7 +155,7 @@ public class PlayerController : NetworkBehaviour
         foreach (var card in playerHand)
         {
             CmdDiscardCard(card);
-        } 
+        }
         playerHand.Clear(); // Limpa a mão do jogador
     }
 
@@ -175,7 +177,7 @@ public class PlayerController : NetworkBehaviour
     public void CmdDiscardCard(GameObject card)
     {
         Debug.Log(card == null);
-        Debug.Log("Etnrei no CmdDiscardCard");  
+        Debug.Log("Etnrei no CmdDiscardCard");
         int cartaId = card.GetComponent<Card>().dadosCarta.id;
         if (playerTeam == "virus")
         {
@@ -194,7 +196,8 @@ public class PlayerController : NetworkBehaviour
     {
         Destroy(card);
         Debug.Log("Entrei no metodo RPC de discartar uma carta");
-        if (isOwned){
+        if (isOwned)
+        {
             playerHand.Remove(card);
         }
 
@@ -230,9 +233,10 @@ public class PlayerController : NetworkBehaviour
     {
         Card cardComponent = card.GetComponent<Card>();
         Carta carta = cardComponent.dadosCarta;
-        foreach (var efeito in carta.efeitos)
+        foreach (var idEfeito in carta.efeitos)
         {
-            //efeito.ApplyEffect(this, gameController);
+            CartaEfeito efeito = EfeitosDatabase.Instance.GetCartaById(idEfeito);
+            efeito.ApplyEffect(this, gameController);
         }
         Debug.Log(card);
         Debug.Log("Carta Ativada e adicionada ao Descarte.");
@@ -244,9 +248,11 @@ public class PlayerController : NetworkBehaviour
     // }
 
     [ClientRpc]
-    void RpcShowCards(GameObject card, string type)
+    void RpcShowCards(int idCarta, GameObject card, string type)
     {
-
+        Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
+        card.GetComponent<Card>().dadosCarta = drawnCard;
+        card.GetComponent<Card>().UpdateCard(drawnCard);
         while (playerArea == null || enemyArea == null)
         {
             InitializeGameObjects();  // Tenta inicializar novamente, caso não tenha sido feito
@@ -261,7 +267,7 @@ public class PlayerController : NetworkBehaviour
             }
             else
             {
-                card.GetComponent<CardFlipper>().Flip();
+                //card.GetComponent<CardFlipper>().Flip();
                 card.transform.SetParent(enemyArea.transform, false);
             }
         }
