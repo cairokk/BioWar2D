@@ -11,6 +11,11 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemyDeck;
     [SerializeField] private TextMeshProUGUI enemyDiscarte;
 
+    public GameObject historyPanel; 
+    public GameObject OpenButton; 
+    public GameObject CloseButton; 
+
+
     private GameController gameController;
     private string lastCuraText = "";
     private string lastVirusText = "";
@@ -66,5 +71,27 @@ public class GameUIManager : MonoBehaviour
         this.playerDiscarte.text = playerDiscarte.ToString();
         this.enemyDeck.text = enemyDeck.ToString();
         this.enemyDiscarte.text = enemyDiscarte.ToString();
+    }
+    public void OpenHistory()
+    {
+        if (historyPanel != null)
+        {
+            historyPanel.SetActive(true);
+            OpenButton.SetActive(false);
+            CloseButton.SetActive(true);
+
+
+        }
+    }
+     public void CloseHistory()
+    {
+        if (historyPanel != null)
+        {
+            historyPanel.SetActive(false);
+            CloseButton.SetActive(false);
+            OpenButton.SetActive(true);
+
+
+        }
     }
 }

@@ -12,8 +12,10 @@ public class Card : NetworkBehaviour
     public PlayerController player;
     private bool isDragging = false;
     private bool isDraggable = false;
+    private GameObject HistoryArea;
     private GameObject startParent;
     private Vector2 startPosition;
+
     private bool isOverDropZone;
     public TextMeshProUGUI textoNome;
     public TextMeshProUGUI textoDescricao;
@@ -33,6 +35,8 @@ public class Card : NetworkBehaviour
     void Start()
     {
         canvas = GameObject.Find("MainCanvas");
+        HistoryArea = GameObject.Find("HistoryContent");
+
         if (isOwned)
         {
             isDraggable = true;
@@ -84,10 +88,13 @@ public class Card : NetworkBehaviour
         if (isOverDropZone)
         {
             if (player.PlayCard(gameObject))
-            {
-                Destroy(gameObject, 0.5f);
+                {
+                    transform.SetParent(HistoryArea.transform, false);
+                    isDraggable = false;
+                    
+                }        
             }
-        }
+            
         else
         {
             transform.position = startPosition;

@@ -26,11 +26,18 @@ public class GameController : NetworkBehaviour
     public List<int> playerVirusDeck = new();
     public List<int> playerVacinaDeck = new();
 
+    public List<int> playerVirusDeckBuild = new();
+    public List<int> playerVacinaDeckBuild = new();
+
     public List<int> playerVirusDiscarte = new();
     public List<int> playerVacinaDiscarte = new();
 
     public Deck deckVirus;
     public Deck deckVacina;
+
+    public Deck deckBuildVirus;
+    public Deck deckBuildVacina;
+
 
     public bool selecionandoBase = false;
 
@@ -59,7 +66,9 @@ public class GameController : NetworkBehaviour
 
         playerVacinaDeck.AddRange(deckVacina.initialDeck);
         playerVirusDeck.AddRange(deckVirus.initialDeck);
-
+        
+        playerVirusDeckBuild.AddRange(deckBuildVacina.initialDeck);
+        playerVacinaDeckBuild.AddRange(deckBuildVirus.initialDeck);
 
         RpcStartGame();
     }
@@ -70,6 +79,10 @@ public class GameController : NetworkBehaviour
         bases.AddRange(FindObjectsOfType<BaseController>());
         playerVacinaDeck.AddRange(deckVacina.initialDeck);
         playerVirusDeck.AddRange(deckVirus.initialDeck);
+
+        playerVirusDeckBuild.AddRange(deckBuildVacina.initialDeck);
+        playerVacinaDeckBuild.AddRange(deckBuildVirus.initialDeck);
+        
         foreach (var player in FindObjectsOfType<PlayerController>())
         {
 

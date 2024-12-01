@@ -11,6 +11,8 @@ public class PlayerController : NetworkBehaviour
 
 
     public GameObject playerArea;
+    public GameObject HistoryArea;
+
     public GameObject enemyArea;
     public GameObject dropZone;
 
@@ -37,6 +39,7 @@ public class PlayerController : NetworkBehaviour
     {
         playerArea = GameObject.Find("PlayerArea");
         enemyArea = GameObject.Find("EnemyArea");
+        HistoryArea = GameObject.Find("HistoryContent");
 
     }
 
@@ -76,6 +79,27 @@ public class PlayerController : NetworkBehaviour
         {
             int idCarta = DrawCard();
 
+            Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
+            GameObject newCard = Instantiate(prefab, new Vector2(0, 0), Quaternion.identity);
+            Card carta = newCard.GetComponent<Card>();
+            carta.dadosCarta = drawnCard;
+            carta.UpdateCard(drawnCard);
+            NetworkServer.Spawn(newCard, connectionToClient);
+            RpcShowCards(idCarta, newCard, "Dealt");
+
+
+        }
+    }
+
+    [Command]
+    public void CmdDealDeckBuildsCards()
+    {
+        GameObject prefab = playerTeam == "vacina" ? prefabVacina : prefabVirus;
+
+        for (int i = 0; i < 5; i++)
+        {
+            int idCarta = DrawCard();
+            
             Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
             GameObject newCard = Instantiate(prefab, new Vector2(0, 0), Quaternion.identity);
             Card carta = newCard.GetComponent<Card>();
@@ -160,7 +184,7 @@ public class PlayerController : NetworkBehaviour
     {
         foreach (var card in playerHand)
         {
-            CmdDiscardCard(card);
+            CmdDiscardCardHand(card);
         }
         playerHand.Clear(); // Limpa a mão do jogador
     }
@@ -193,19 +217,42 @@ public class PlayerController : NetworkBehaviour
         {
             gameController.playerVacinaDiscarte.Add(cartaId);
         }
-
         RpcDiscardCard(card);
     }
-
+     [Command]
+    public void CmdDiscardCardHand(GameObject card)
+    {
+        Debug.Log(card == null);
+        Debug.Log("Etnrei no CmdDiscardCard");
+        int cartaId = card.GetComponent<Card>().dadosCarta.id;
+        if (playerTeam == "virus")
+        {
+            gameController.playerVirusDiscarte.Add(cartaId);
+        }
+        else
+        {
+            gameController.playerVacinaDiscarte.Add(cartaId);
+        }
+        RpcDiscardCardHand(card);
+    }
+    
     [ClientRpc]
     public void RpcDiscardCard(GameObject card)
     {
-        Destroy(card);
+        
+        if (HistoryArea == null)
+        {
+            Debug.LogWarning("HistoryArea não foi encontrado, inicializando novamente.");
+            HistoryArea = GameObject.Find("History");
+        }
+        card.transform.SetParent(HistoryArea.transform, false);
+
         Debug.Log("Entrei no metodo RPC de discartar uma carta");
         if (isOwned)
         {
             playerHand.Remove(card);
         }
+        
 
         int cartaId = card.GetComponent<Card>().dadosCarta.id;
         if (playerTeam == "virus")
@@ -219,7 +266,31 @@ public class PlayerController : NetworkBehaviour
 
         AtualizarUIBaralhos();
     }
+[ClientRpc]
+    public void RpcDiscardCardHand(GameObject card)
+    {
+        Destroy(card);
+        card.transform.SetParent(HistoryArea.transform, false);
 
+        Debug.Log("Entrei no metodo RPC de discartar uma carta");
+        if (isOwned)
+        {
+            playerHand.Remove(card);
+        }
+        
+
+        int cartaId = card.GetComponent<Card>().dadosCarta.id;
+        if (playerTeam == "virus")
+        {
+            gameController.playerVirusDiscarte.Add(cartaId);
+        }
+        else
+        {
+            gameController.playerVacinaDiscarte.Add(cartaId);
+        }
+
+        AtualizarUIBaralhos();
+    }
     public bool IsMyTurn()
     {
         // Verifica se o turno atual corresponde ao time do jogador
@@ -303,7 +374,6 @@ public class PlayerController : NetworkBehaviour
 
     public void EndTurn()
     {
-
         if (turnManager != null && IsMyTurn())
         {
             DiscardHand();
