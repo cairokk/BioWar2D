@@ -839,7 +839,6 @@ MonoBehaviour:
   deckVirus: {fileID: 11400000, guid: b55f701b15591a342a34ce84b2a985b8, type: 2}
   deckVacina: {fileID: 11400000, guid: 56ad3b9050fb3484d89a0d68570283b1, type: 2}
   selecionandoBase: 0
-  baseSelecionada: 
 --- !u!4 &723247680
 Transform:
   m_ObjectHideFlags: 0

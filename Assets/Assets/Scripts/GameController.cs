@@ -33,7 +33,6 @@ public class GameController : NetworkBehaviour
     public Deck deckVacina;
 
     public bool selecionandoBase = false;
-    public string baseSelecionada = "";
 
 
     void Start()
@@ -119,6 +118,12 @@ public class GameController : NetworkBehaviour
         atributosCura.CalcularFatorDeUrgencia(virus, populacaoMorta);
     }
 
+    [ClientRpc]
+    public void RpcAtualizarSelecionandoBase(bool valor)
+    {
+        selecionandoBase = valor;
+    }
+
     void IniciarRegioes()
     {
         foreach (var componente in bases)
@@ -126,7 +131,5 @@ public class GameController : NetworkBehaviour
             componente.RpcUpdateUI();
         }
     }
-
-
 
 }

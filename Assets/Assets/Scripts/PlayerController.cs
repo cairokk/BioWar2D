@@ -31,7 +31,7 @@ public class PlayerController : NetworkBehaviour
 
     GameUIManager gameUIManager;
 
-    private bool isGameSceneLoaded = false;
+    public string baseSelecionada = "Africa";
 
     private void InitializeGameObjects()
     {
@@ -86,6 +86,12 @@ public class PlayerController : NetworkBehaviour
 
 
         }
+    }
+
+    [Command]
+    public void CmdAlterandoBaseSelecionada(string baseSelecionada)
+    {
+        this.baseSelecionada = baseSelecionada;
     }
 
     int DrawCard()
@@ -267,7 +273,7 @@ public class PlayerController : NetworkBehaviour
             }
             else
             {
-                //card.GetComponent<CardFlipper>().Flip();
+                card.GetComponent<CardFlipper>().Flip();
                 card.transform.SetParent(enemyArea.transform, false);
             }
         }

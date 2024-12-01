@@ -9,25 +9,10 @@ public class AumentarResiliencia : CartaEfeito
 
     public override void ApplyEffect(PlayerController player, GameController gameController)
     {
-        gameController.StartCoroutine(SelecionarBaseEAplicarEfeito(player, gameController));
+        BaseController regiaoSelecionada = gameController.bases.Find(b => b.regiao.nomeBase == player.baseSelecionada);
+        regiaoSelecionada.regiao.defesa += qtdResiliencia;
+        gameController.OnAtributosVirusChanged(gameController.atributosVirus);
+        Debug.Log($"Aumentou {qtdResiliencia} na base {regiaoSelecionada.regiao.nomeBase}");
     }
 
-    private IEnumerator SelecionarBaseEAplicarEfeito(PlayerController player, GameController gameController)
-    {
-        gameController.selecionandoBase = true;
-
-        while (string.IsNullOrEmpty(gameController.baseSelecionada))
-        {
-            yield return null; 
-        }
-
-        BaseController baseSelecionada = gameController.bases.Find(b => b.regiao.nomeBase == gameController.baseSelecionada);
-
-        baseSelecionada.regiao.defesa += qtdResiliencia;
-
-        gameController.baseSelecionada = "";
-        gameController.selecionandoBase = false;
-
-        Debug.Log($"{player.name} aumentou {qtdResiliencia} de infecção.");
-    }
 }

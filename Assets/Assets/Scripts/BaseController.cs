@@ -49,24 +49,17 @@ public class BaseController : NetworkBehaviour
 
     public void OnClick()
     {
-        GameController gameController = FindObjectOfType<GameController>();
-        if (gameController.selecionandoBase == true)
-        {
-            Debug.Log("Cliquei na base");
-            CmdAlterarBaseSelecionada(regiao.nomeBase);
-
-            gameController.selecionandoBase = false;
-        }
-
+        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        PlayerController player = networkIdentity.GetComponent<PlayerController>();
+        Debug.Log("Cliquei na base");
+        player.baseSelecionada = regiao.nomeBase;
+        player.CmdAlterandoBaseSelecionada(regiao.nomeBase);
 
     }
-    [Command]
-    public void CmdAlterarBaseSelecionada(string baseSelecionada)
-    {
-        GameController gameController = FindObjectOfType<GameController>();
-        gameController.selecionandoBase = false;
-        gameController.baseSelecionada = regiao.nomeBase;
-    }
+
+
+
+
 
     public void OnEnterHover()
     {
