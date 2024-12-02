@@ -11,6 +11,10 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemyDeck;
     [SerializeField] private TextMeshProUGUI enemyDiscarte;
 
+    [SerializeField] private TextMeshProUGUI curaRecursos;
+    [SerializeField] private TextMeshProUGUI virusRecursos;
+
+
     public GameObject historyPanel; 
     public GameObject OpenButton; 
     public GameObject CloseButton; 
@@ -42,13 +46,16 @@ public class GameUIManager : MonoBehaviour
             string newCuraText = $"Taxa de Cura: {gameController.atributosCura.taxaDacura}\n" +
                                  $"Taxa de Pesquisa: {gameController.atributosCura.taxaDePesquisa}\n" +
                                  $"Fator de Urgência: {gameController.atributosCura.fatorDeUrgencia}\n" +
-                                 $"Avanço da Cura: {gameController.atributosCura.avancoDaCura}\n" + 
-                                 $"Quantidade de Recurso: {gameController.atributosCura.recurso}";
+                                 $"Avanço da Cura: {gameController.atributosCura.avancoDaCura}\n";
+
+
+            string newCuraRecursoText = $"{gameController.atributosCura.recurso}";
 
             if (newCuraText != lastCuraText)
             {
                 curaText.text = newCuraText;
                 lastCuraText = newCuraText;
+                curaRecursos.text = newCuraRecursoText;
             }
         }
 
@@ -56,14 +63,19 @@ public class GameUIManager : MonoBehaviour
         if (gameController != null && gameController.atributosVirus != null)
         {
             string newVirusText = $"Taxa de Mortalidade: {gameController.atributosVirus.taxaDeMortalidade}\n" +
-                                  $"Taxa de Infecção: {gameController.atributosVirus.taxaDeInfeccao}\n" + 
-                                 $"Quantidade de Recurso: {gameController.atributosVirus.recurso}";
+                                  $"Taxa de Infecção: {gameController.atributosVirus.taxaDeInfeccao}\n";
+                                 
+
+            string newVirusRecursoText = $"{gameController.atributosVirus.recurso}";
             if (newVirusText != lastVirusText)
             {
                 virusText.text = newVirusText;
                 lastVirusText = newVirusText;
+                virusRecursos.text = newVirusRecursoText;
+                
             }
         }
+        
     }
 
     public void UpdateUI(int playerDeck, int playerDiscarte, int enemyDeck, int enemyDiscarte)

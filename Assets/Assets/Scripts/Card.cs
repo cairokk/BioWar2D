@@ -164,4 +164,23 @@ public class Card : NetworkBehaviour
             player.cardDeckBuildClick(gameObject);
         }
     }
+    public void SetCardSaturation(bool isGrayscale)
+    {
+        if (ImagemCarta != null)
+        {
+            ImagemCarta.color = isGrayscale ? new Color(0.3f, 0.3f, 0.3f) : Color.white;
+        }
+        if (ImagemCartaZoom != null)
+        {
+            ImagemCartaZoom.color = isGrayscale ? new Color(0.3f, 0.3f, 0.3f) : Color.white;
+        }
+        if (moldura != null)
+        {
+            moldura.color = isGrayscale ? new Color(0.3f, 0.3f, 0.3f) : Color.white;
+        }
+        if (molduraZoom != null)
+        {
+            molduraZoom.color = isGrayscale ? new Color(0.3f, 0.3f, 0.3f) : Color.white;
+        }
+    }
 }

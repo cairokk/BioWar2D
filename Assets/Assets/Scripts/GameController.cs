@@ -29,8 +29,11 @@ public class GameController : NetworkBehaviour
     public List<int> playerVirusDeckBuild = new();
     public List<int> playerVacinaDeckBuild = new();
 
+    public List<int> playerVirusDeckBuildAux = new();
+    public List<int> playerVacinaDeckBuildAux = new();
     public List<int> playerVirusDiscarte = new();
     public List<int> playerVacinaDiscarte = new();
+
 
     public Deck deckVirus;
     public Deck deckVacina;
