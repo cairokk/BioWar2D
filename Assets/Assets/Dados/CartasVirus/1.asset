@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   nome: "Muta\xE7\xE3o: Infec\xE7\xE3o"
-  descricao: "Aumenta a taxa de infec\xE7\xE3o do virus em 1"
-  custo: 0
+  descricao: Aumenta o recurso do virus em 1
+  custo: 1
   imagem: {fileID: 21300000, guid: c5880de0d93f9f343b7285e0d7fe302a, type: 3}
-  efeitos: 02000000
+  efeitos: 04000000

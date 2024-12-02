@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 72
   nome: "Muta\xE7\xE3o: Infec\xE7\xE3o"
-  descricao: Carta nova COMPRA
-  custo: 5
+  descricao: GANHA RECURSO
+  custo: 2
   imagem: {fileID: 21300000, guid: c5880de0d93f9f343b7285e0d7fe302a, type: 3}
-  efeitos: 02000000
+  efeitos: 04000000

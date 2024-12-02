@@ -3,7 +3,9 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
+using DG.Tweening;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(EdgeCollider2D))]
 public class BaseController : NetworkBehaviour
 {
     public BaseClass regiao;
@@ -13,12 +15,20 @@ public class BaseController : NetworkBehaviour
     public TextMeshProUGUI textoInfeccao;
     private Image imagem;
     private Color originalColor;
+    
+    private Vector3 originalPosition;
+    private bool isMouseOver = false; // Controle para evitar repetição de eventos
+    private static BaseController baseSelecionadaAtual;
 
 
     private void Start()
     {
         imagem = GetComponent<Image>();
         originalColor = imagem.color;
+        originalPosition = transform.localPosition;
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.bodyType = RigidbodyType2D.Kinematic; // Para evitar interações físicas desnecessárias
+    
         InitializeBase();
     }
 
@@ -54,21 +64,46 @@ public class BaseController : NetworkBehaviour
         Debug.Log("Cliquei na base");
         player.baseSelecionada = regiao.nomeBase;
         player.CmdAlterandoBaseSelecionada(regiao.nomeBase);
+        SelecionarBase();
 
+    }
+     private void SelecionarBase()
+    {
+        if (baseSelecionadaAtual != null)
+        {
+            // Resetar a cor ou desativar animação da base anterior
+            baseSelecionadaAtual.imagem.DOKill();
+            baseSelecionadaAtual.imagem.color = baseSelecionadaAtual.originalColor;
+        }
+
+        // Atualizar a base selecionada
+        baseSelecionadaAtual = this;
+
+        // Criar um efeito de brilho animado
+        imagem.DOKill(); // Parar animações anteriores
+        imagem.DOColor(Color.yellow, 0.4f).SetLoops(-1, LoopType.Yoyo);
     }
 
 
 
 
 
-    public void OnEnterHover()
+       public void OnEnterHover()
     {
-        imagem.color = Color.yellow;
+        if (!isMouseOver)
+        {
+            isMouseOver = true;
+            transform.DOLocalMoveY(originalPosition.y + 10f, 0.3f).SetEase(Ease.OutQuad);
+        }
     }
 
     public void OnExitHover()
     {
-        imagem.color = originalColor;
+        if (isMouseOver)
+        {
+            isMouseOver = false;
+            transform.DOLocalMoveY(originalPosition.y, 0.3f).SetEase(Ease.OutQuad);
+        }
     }
 
 
