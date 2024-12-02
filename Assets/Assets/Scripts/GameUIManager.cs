@@ -117,24 +117,30 @@ public class GameUIManager : MonoBehaviour
             // Alterna o estado
             isPanelOpen = !isPanelOpen;
         }
-     public void OpenDeckBuild()
+        public void OpenDeckBuild()
     {
         if (DeckBuildPanel != null)
         {
-            DeckBuildPanel.SetActive(true);
-            OpenButtonDeckBuild.SetActive(true);
-            CloseButtonDeckBuild.SetActive(true);
-
-
+            DeckBuildPanel.SetActive(true); 
+            DeckBuildPanel.transform.DOScale(Vector3.one, 0.5f).From(Vector3.zero).SetEase(Ease.OutBack); // Animação de escala de 0 para 1
+            OpenButtonDeckBuild.SetActive(true); 
+            CloseButtonDeckBuild.SetActive(true); 
+        }
+        else
+        {
+            Debug.LogWarning("DeckBuildPanel é nulo!");
         }
     }
     public void CloseDeckbuild()
 {
     if (DeckBuildPanel != null)
     {
-        DeckBuildPanel.SetActive(false); // Fecha o painel
-        OpenButtonDeckBuild.SetActive(true); // Mostra o botão de abrir
-        CloseButtonDeckBuild.SetActive(false); // Esconde o botão de fechar
+        DeckBuildPanel.transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack).OnComplete(() => 
+        {
+            DeckBuildPanel.SetActive(false); 
+        });
+        OpenButtonDeckBuild.SetActive(true); 
+        CloseButtonDeckBuild.SetActive(false); 
     }
     else
     {
