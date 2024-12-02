@@ -22,5 +22,11 @@ public class CardFlipper : MonoBehaviour
             isVirada = true;
         }
     }
+    public void EnsureFaceUp()
+    {
+        if (!isVirada) // Se já está desflipada, não faça nada
+            return;
 
+        Flip(); // Desflipa a carta
+    }
 }

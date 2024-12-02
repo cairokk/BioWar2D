@@ -19,7 +19,8 @@ public class BaseController : NetworkBehaviour
     private Vector3 originalPosition;
     private bool isMouseOver = false; // Controle para evitar repetição de eventos
     private static BaseController baseSelecionadaAtual;
-
+    private Vector2 offScreenPosition = new Vector2(-220, -129); // Ajuste conforme necessário.
+    private Vector2 onScreenPosition = new Vector2(-58, -129);
 
     private void Start()
     {

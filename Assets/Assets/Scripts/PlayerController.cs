@@ -315,8 +315,15 @@ public class PlayerController : NetworkBehaviour
             Debug.LogWarning("HistoryArea não foi encontrado, inicializando novamente.");
             HistoryArea = GameObject.Find("History");
         }
-        card.transform.SetParent(HistoryArea.transform, false);
 
+         CardFlipper cardFlipper = card.GetComponent<CardFlipper>();
+        if (cardFlipper != null)
+        {
+            cardFlipper.EnsureFaceUp();
+        }
+
+        card.transform.SetParent(HistoryArea.transform, false);
+    
         Debug.Log("Entrei no metodo RPC de discartar uma carta");
         if (isOwned)
         {
@@ -339,6 +346,11 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void RpcDiscardCardHand(GameObject card)
     {
+         CardFlipper cardFlipper = card.GetComponent<CardFlipper>();
+        if (cardFlipper != null)
+        {
+            cardFlipper.EnsureFaceUp();
+        }
         Destroy(card);
         card.transform.SetParent(HistoryArea.transform, false);
 

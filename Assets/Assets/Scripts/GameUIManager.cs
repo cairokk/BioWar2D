@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -22,15 +23,23 @@ public class GameUIManager : MonoBehaviour
     public GameObject DeckBuildPanel; 
     public GameObject OpenButtonDeckBuild; 
     public GameObject CloseButtonDeckBuild; 
+    [SerializeField] private RectTransform historyPanelRect;
+    [SerializeField] private RectTransform toggleButtonRect; 
 
     private GameController gameController;
     private string lastCuraText = "";
     private string lastVirusText = "";
-
+    private Vector2 panelOffScreenPosition  = new Vector2(-164, -129); // Ajuste conforme necessário.
+    private Vector2 panelOnScreenPosition  = new Vector2(-58, -129);    
+    private Vector2 buttonOffScreenPosition = new Vector2(-102, -134); // Ajuste conforme necessário
+    private Vector2 buttonOnScreenPosition = new Vector2(4, -134); // Posição ao lado do painel
+    private bool isPanelOpen = false; // Controle do estado do painel
     private void Start()
     {
         // Procura pelo GameController na cena
         gameController = FindObjectOfType<GameController>();
+        historyPanelRect.anchoredPosition = panelOffScreenPosition;
+        toggleButtonRect.anchoredPosition = buttonOffScreenPosition;
 
         if (gameController == null)
         {
@@ -87,31 +96,24 @@ public class GameUIManager : MonoBehaviour
         this.enemyDeck.text = enemyDeck.ToString();
         this.enemyDiscarte.text = enemyDiscarte.ToString();
     }
-    public void OpenHistory()
-    {
-        if (historyPanel != null)
+    public void ToggleHistoryPanel()
         {
-            historyPanel.SetActive(true);
-            OpenButton.SetActive(false);
-            CloseButton.SetActive(true);
+            if (isPanelOpen)
+            {
+                // Fecha o painel
+                historyPanelRect.DOAnchorPos(panelOffScreenPosition, 0.5f);
+                toggleButtonRect.DOAnchorPos(buttonOffScreenPosition, 0.5f);
+            }
+            else
+            {
+                // Abre o painel
+                historyPanelRect.DOAnchorPos(panelOnScreenPosition, 0.5f);
+                toggleButtonRect.DOAnchorPos(buttonOnScreenPosition, 0.5f);
+            }
 
-
+            // Alterna o estado
+            isPanelOpen = !isPanelOpen;
         }
-    }
-
-   
-     public void CloseHistory()
-    {
-        if (historyPanel != null)
-        {
-            historyPanel.SetActive(false);
-            CloseButton.SetActive(false);
-            OpenButton.SetActive(true);
-
-
-        }
-    }
-
      public void OpenDeckBuild()
     {
         if (DeckBuildPanel != null)

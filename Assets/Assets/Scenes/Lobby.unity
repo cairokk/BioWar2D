@@ -1235,7 +1235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &449049556
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1742,6 +1742,11 @@ MonoBehaviour:
   taxaDeInfeccao: 1
   taxaDeMortalidade: 1
   recurso: 0
+--- !u!224 &749133654 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+  m_PrefabInstance: {fileID: 838013811}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &755478487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,6 +2010,107 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 20}
   m_Constraint: 1
   m_ConstraintCount: 1
+--- !u!1001 &838013811
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 946667650}
+    m_Modifications:
+    - target: {fileID: 1822405299111922017, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7501bc89de932ff45bf7c5bdf3ece8e5, type: 3}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0.47999954
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.23999023
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7822746159590927909, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
+      propertyPath: m_Name
+      value: BackgroundEnemyTurn
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
 --- !u!1 &839802461
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,6 +2342,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1756659506}
+  - {fileID: 749133654}
   - {fileID: 1126117330}
   - {fileID: 1989282615}
   - {fileID: 1550662328}
@@ -2352,7 +2459,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -58.608887, y: -129.62994}
+  m_AnchoredPosition: {x: -164.70886, y: -129.62994}
   m_SizeDelta: {x: 248.9888, y: 818.0276}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1008554562
@@ -3088,7 +3195,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.1, y: -134.4}
+  m_AnchoredPosition: {x: -102, y: -134.4}
   m_SizeDelta: {x: 45.9042, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1274442428
@@ -3192,7 +3299,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1558693026}
           m_TargetAssemblyTypeName: GameUIManager, Assembly-CSharp
-          m_MethodName: CloseHistory
+          m_MethodName: ToggleHistoryPanel
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -4403,7 +4510,7 @@ PrefabInstance:
     - target: {fileID: 1822405299111922017, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8511fcada15f87d42895a4262d620956, type: 3}
+      objectReference: {fileID: 21300000, guid: c0b59884747a5f14bb3c4d1d30480499, type: 3}
     - target: {fileID: 4987139203081882525, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4486,7 +4593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822746159590927909, guid: 4f900a2a714008d4b9f6062286f90723, type: 3}
       propertyPath: m_Name
-      value: BackGround
+      value: BackgroundPlayerTurn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4901,7 +5008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4996873158218960248, guid: 4555d4688324a784a9e7316b2af4ec73, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -441
+      value: -436
       objectReference: {fileID: 0}
     - target: {fileID: 4996873158218960248, guid: 4555d4688324a784a9e7316b2af4ec73, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6214,6 +6321,14 @@ PrefabInstance:
       propertyPath: DeckBuildPanel
       value: 
       objectReference: {fileID: 449049555}
+    - target: {fileID: 4779301583118993127, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
+      propertyPath: historyPanelRect
+      value: 
+      objectReference: {fileID: 1008554561}
+    - target: {fileID: 4779301583118993127, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
+      propertyPath: toggleButtonRect
+      value: 
+      objectReference: {fileID: 1274442427}
     - target: {fileID: 4779301583118993127, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: OpenButtonDeckBuild
       value: 
