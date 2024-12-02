@@ -87,7 +87,34 @@ public class GameUIManager : MonoBehaviour
                 
             }
         }
+        if (Input.GetKeyDown(KeyCode.Tab)) // Ao pressionar Tab
+        {
+            OpenHistoryPanel();
+        }
+        else if (Input.GetKeyUp(KeyCode.Tab)) // Ao soltar Tab
+        {
+            CloseHistoryPanel();
+        }
         
+    }
+        private void OpenHistoryPanel()
+    {
+        if (!isPanelOpen) // Apenas se não estiver já aberto
+        {
+            historyPanelRect.DOAnchorPos(panelOnScreenPosition, 0.5f);
+            toggleButtonRect.DOAnchorPos(buttonOnScreenPosition, 0.5f);
+            isPanelOpen = true;
+        }
+    }
+
+    private void CloseHistoryPanel()
+    {
+        if (isPanelOpen) // Apenas se estiver aberto
+        {
+            historyPanelRect.DOAnchorPos(panelOffScreenPosition, 0.5f);
+            toggleButtonRect.DOAnchorPos(buttonOffScreenPosition, 0.5f);
+            isPanelOpen = false;
+        }
     }
 
     public void UpdateUI(int playerDeck, int playerDiscarte, int enemyDeck, int enemyDiscarte)
