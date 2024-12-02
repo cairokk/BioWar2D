@@ -17,6 +17,11 @@ public class CartaDatabase : MonoBehaviour
 
     public Carta GetCartaById(int id)
     {
+        Debug.Log("Carta com o id: " + id);
+        Debug.Log("Carta com o id: " + id);
+        Debug.Log("Carta com o id: " + id);
+        Debug.Log("Carta com o id: " + id);
         return todasAsCartas.Find(c => c.id == id);
+        
     }
 }

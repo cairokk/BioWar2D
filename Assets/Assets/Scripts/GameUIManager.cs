@@ -15,6 +15,9 @@ public class GameUIManager : MonoBehaviour
     public GameObject OpenButton; 
     public GameObject CloseButton; 
 
+    public GameObject DeckBuildPanel; 
+    public GameObject OpenButtonDeckBuild; 
+    public GameObject CloseButtonDeckBuild; 
 
     private GameController gameController;
     private string lastCuraText = "";
@@ -83,6 +86,8 @@ public class GameUIManager : MonoBehaviour
 
         }
     }
+
+   
      public void CloseHistory()
     {
         if (historyPanel != null)
@@ -94,4 +99,29 @@ public class GameUIManager : MonoBehaviour
 
         }
     }
+
+     public void OpenDeckBuild()
+    {
+        if (DeckBuildPanel != null)
+        {
+            DeckBuildPanel.SetActive(true);
+            OpenButtonDeckBuild.SetActive(true);
+            CloseButtonDeckBuild.SetActive(true);
+
+
+        }
+    }
+    public void CloseDeckbuild()
+{
+    if (DeckBuildPanel != null)
+    {
+        DeckBuildPanel.SetActive(false); // Fecha o painel
+        OpenButtonDeckBuild.SetActive(true); // Mostra o botão de abrir
+        CloseButtonDeckBuild.SetActive(false); // Esconde o botão de fechar
+    }
+    else
+    {
+        Debug.LogWarning("DeckBuildPanel é nulo!");
+    }
+}
 }

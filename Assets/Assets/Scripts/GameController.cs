@@ -67,8 +67,11 @@ public class GameController : NetworkBehaviour
         playerVacinaDeck.AddRange(deckVacina.initialDeck);
         playerVirusDeck.AddRange(deckVirus.initialDeck);
         
-        playerVirusDeckBuild.AddRange(deckBuildVacina.initialDeck);
-        playerVacinaDeckBuild.AddRange(deckBuildVirus.initialDeck);
+        
+        playerVacinaDeckBuild.AddRange(deckBuildVacina.initialDeck);
+        playerVirusDeckBuild.AddRange(deckBuildVirus.initialDeck);
+        Debug.Log(playerVirusDeckBuild.Count);
+
 
         RpcStartGame();
     }
@@ -79,15 +82,17 @@ public class GameController : NetworkBehaviour
         bases.AddRange(FindObjectsOfType<BaseController>());
         playerVacinaDeck.AddRange(deckVacina.initialDeck);
         playerVirusDeck.AddRange(deckVirus.initialDeck);
+             
+        playerVacinaDeckBuild.AddRange(deckBuildVacina.initialDeck);
+        playerVirusDeckBuild.AddRange(deckBuildVirus.initialDeck);
 
-        playerVirusDeckBuild.AddRange(deckBuildVacina.initialDeck);
-        playerVacinaDeckBuild.AddRange(deckBuildVirus.initialDeck);
-        
+
         foreach (var player in FindObjectsOfType<PlayerController>())
         {
 
             player.AtualizarUIBaralhos();
             player.CmdDealCards();
+            player.CmdDealCardsToDeckBuild();
 
         }
 

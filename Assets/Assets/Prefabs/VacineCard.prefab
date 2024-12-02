@@ -525,6 +525,7 @@ MonoBehaviour:
   ImagemCartaZoom: {fileID: 5404925112186318411}
   moldura: {fileID: 6445232805471317903}
   molduraZoom: {fileID: 9004621168074668235}
+  isDeckbuildCard: 0
 --- !u!114 &-3295170399695926246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,6 +599,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 2782534512882221111}
+          m_TargetAssemblyTypeName: Card, Assembly-CSharp
+          m_MethodName: cardPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 0
     callback:
       m_PersistentCalls:
@@ -605,6 +618,34 @@ MonoBehaviour:
         - m_Target: {fileID: 7117811508267264663}
           m_TargetAssemblyTypeName: CardZoom, Assembly-CSharp
           m_MethodName: onHoverStart
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2782534512882221111}
+          m_TargetAssemblyTypeName: Card, Assembly-CSharp
+          m_MethodName: cardPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2782534512882221111}
+          m_TargetAssemblyTypeName: Card, Assembly-CSharp
+          m_MethodName: cardClick
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1272,6 +1313,7 @@ MonoBehaviour:
   ImagemCartaZoom: {fileID: 0}
   moldura: {fileID: 0}
   molduraZoom: {fileID: 0}
+  isDeckbuildCard: 0
 --- !u!114 &7737288098282873817
 MonoBehaviour:
   m_ObjectHideFlags: 0

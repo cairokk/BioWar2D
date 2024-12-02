@@ -8,11 +8,12 @@ public class PlayerController : NetworkBehaviour
 
     public GameObject prefabVirus;
     public GameObject prefabVacina;
-
-
+    public GameObject prefabCardDeckBuildVacina;
+    public GameObject prefabCardDeckBuildVirus;
     public GameObject playerArea;
     public GameObject HistoryArea;
-
+    public GameObject enemyDeckBuildArea;
+    public GameObject playerDeckBuildArea;
     public GameObject enemyArea;
     public GameObject dropZone;
 
@@ -40,6 +41,8 @@ public class PlayerController : NetworkBehaviour
         playerArea = GameObject.Find("PlayerArea");
         enemyArea = GameObject.Find("EnemyArea");
         HistoryArea = GameObject.Find("HistoryContent");
+        playerDeckBuildArea = GameObject.Find("PlayerDeckBuildContent");
+        enemyDeckBuildArea = GameObject.Find("EnemyDeckBuildContent");
 
     }
 
@@ -92,26 +95,34 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    public void CmdDealDeckBuildsCards()
+    public void CmdDealCardsToDeckBuild()
     {
         GameObject prefab = playerTeam == "vacina" ? prefabVacina : prefabVirus;
 
         for (int i = 0; i < 5; i++)
         {
-            int idCarta = DrawCard();
-            
+            int idCarta = DrawCardDeckBuild();
             Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
             GameObject newCard = Instantiate(prefab, new Vector2(0, 0), Quaternion.identity);
             Card carta = newCard.GetComponent<Card>();
+            Debug.Log("Pegando carta pro deckbuild id:" + idCarta );
+
             carta.dadosCarta = drawnCard;
             carta.UpdateCard(drawnCard);
+            carta.isDeckbuildCard = true;
+            carta.SetDraggable(false);
             NetworkServer.Spawn(newCard, connectionToClient);
-            RpcShowCards(idCarta, newCard, "Dealt");
+            RpcShowCards(idCarta, newCard, "DealtToDeckBuild");
 
 
         }
     }
-
+    [ClientRpc]
+    public void RpcSetDraggable(GameObject cardObject, bool draggable)
+    {
+        Card card = cardObject.GetComponent<Card>();
+        card.SetDraggable(false);
+    }
     [Command]
     public void CmdAlterandoBaseSelecionada(string baseSelecionada)
     {
@@ -154,6 +165,33 @@ public class PlayerController : NetworkBehaviour
             int cardId = gameController.playerVirusDeck[0];
             gameController.playerVirusDeck.RemoveAt(0);
             RpcAtualizarBaralhos(gameController.playerVirusDeck, gameController.playerVacinaDeck, gameController.playerVacinaDiscarte, gameController.playerVirusDiscarte);
+            return cardId;
+        }
+    }
+
+    int DrawCardDeckBuild()
+    {
+        Debug.Log("Etnrei no DrawCard do Deckbuild");
+        if (playerTeam == "vacina")
+        {
+            Debug.Log("entrei no Deckbuild da Vacina");
+            Debug.Log("entrei no Deckbuild da Vacina");
+            Debug.Log("entrei no Deckbuild da Vacina");
+
+            int cardId = gameController.playerVacinaDeckBuild[0];
+            gameController.playerVacinaDeckBuild.RemoveAt(0);// Remove a carta do topo
+            return cardId;
+        }
+        else
+        {
+            Debug.Log("entrei no Deckbuild do virus");
+            Debug.Log("entrei no Deckbuild do virus");
+            Debug.Log("entrei no Deckbuild do virus");
+
+            int cardId = gameController.playerVirusDeckBuild[0];
+           
+
+            gameController.playerVirusDeckBuild.RemoveAt(0);
             return cardId;
         }
     }
@@ -328,8 +366,10 @@ public class PlayerController : NetworkBehaviour
     void RpcShowCards(int idCarta, GameObject card, string type)
     {
         Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
-        card.GetComponent<Card>().dadosCarta = drawnCard;
-        card.GetComponent<Card>().UpdateCard(drawnCard);
+        Card cardComponent = card.GetComponent<Card>();
+
+        cardComponent.dadosCarta = drawnCard;
+        cardComponent.UpdateCard(drawnCard);
         while (playerArea == null || enemyArea == null)
         {
             InitializeGameObjects();  // Tenta inicializar novamente, caso não tenha sido feito
@@ -346,6 +386,20 @@ public class PlayerController : NetworkBehaviour
             {
                 card.GetComponent<CardFlipper>().Flip();
                 card.transform.SetParent(enemyArea.transform, false);
+            }
+        }
+        if(type == "DealtToDeckBuild") 
+        {
+            cardComponent.SetDraggable(false); 
+            cardComponent.isDeckbuildCard = true;
+
+            if (isOwned)
+            {
+                card.transform.SetParent(playerDeckBuildArea.transform, false);
+            }
+            else
+            {
+                card.transform.SetParent(enemyDeckBuildArea.transform, false);
             }
         }
     }
@@ -473,6 +527,58 @@ public class PlayerController : NetworkBehaviour
         gameUIManager.UpdateUI(playerDeckCount, playerDiscarteCount, enemyDeckCount, enemyDiscarteCount);
 
     }
+    public void cardDeckBuildClick(GameObject card)
+    {
+        Card cardComponent = card.GetComponent<Card>();
+
+        if (cardComponent == null)
+        {
+            Debug.LogError("NULLLLLLLLLLLLL");
+            return;
+        }
+
+        int cardCost = cardComponent.dadosCarta.custo;
+
+        if (playerRecurso >= cardCost)
+        {
+            CmdTransferToDiscard(card);
+        }
+        else
+        {
+            Debug.Log("Sem recurso" + playerRecurso + " " +cardCost);
+        }
+    }
+
+    [Command]
+    private void CmdTransferToDiscard(GameObject card)
+    {
+        Card cardComponent = card.GetComponent<Card>();
+        if (cardComponent == null) return;
+
+        playerRecurso -= cardComponent.dadosCarta.custo;
+
+        int cartaId = cardComponent.dadosCarta.id;
+        if (playerTeam == "virus")
+        {
+            gameController.playerVirusDiscarte.Add(cartaId);
+        }
+        else
+        {
+            gameController.playerVacinaDiscarte.Add(cartaId);
+        }
+
+        RpcRemoveCardVisual(card);
+    }
+
+    [ClientRpc]
+    private void RpcRemoveCardVisual(GameObject card)
+    {
+        Destroy(card);
+        AtualizarUIBaralhos();
+    }
+
+
+    
 
 
 }

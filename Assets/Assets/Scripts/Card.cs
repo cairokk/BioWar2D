@@ -4,6 +4,7 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
+using DG.Tweening; 
 
 public class Card : NetworkBehaviour
 {
@@ -11,7 +12,7 @@ public class Card : NetworkBehaviour
     public GameObject canvas;
     public PlayerController player;
     private bool isDragging = false;
-    private bool isDraggable = false;
+    [SyncVar] private bool isDraggable = false;
     private GameObject HistoryArea;
     private GameObject startParent;
     private Vector2 startPosition;
@@ -26,8 +27,8 @@ public class Card : NetworkBehaviour
     public Image ImagemCartaZoom;
     public Image moldura;
     public Image molduraZoom;
-
-
+    public bool isDeckbuildCard = false;
+    private Vector3 originalScale;
 
 
 
@@ -41,22 +42,35 @@ public class Card : NetworkBehaviour
         {
             isDraggable = true;
         }
+        originalScale = transform.localScale;
+
     }
 
     public void UpdateCard(Carta novosDados)
     {
+        if (novosDados == null)
+        {
+            Debug.LogError("UpdateCard received null Carta data.");
+            return;
+        }
+
         dadosCarta = novosDados;
-        textoNome.text = dadosCarta.nome;
-        textoNomeZoom.text = dadosCarta.nome;
-        textoDescricao.text = dadosCarta.descricao;
-        textoDescricaoZoom.text = dadosCarta.descricao;
 
-        moldura.sprite = costSprites[dadosCarta.custo];
-        molduraZoom.sprite = costSprites[dadosCarta.custo];
-        ImagemCarta.sprite = dadosCarta.imagem;
-        ImagemCartaZoom.sprite = dadosCarta.imagem;
-
+        if (textoNome != null) textoNome.text = dadosCarta.nome;
+        if (textoNomeZoom != null) textoNomeZoom.text = dadosCarta.nome;
+        if (textoDescricao != null) textoDescricao.text = dadosCarta.descricao;
+        if (textoDescricaoZoom != null) textoDescricaoZoom.text = dadosCarta.descricao;
+        
+        if (moldura != null && dadosCarta.custo >= 0 && dadosCarta.custo < costSprites.Length)
+            moldura.sprite = costSprites[dadosCarta.custo];
+        if (molduraZoom != null && dadosCarta.custo >= 0 && dadosCarta.custo < costSprites.Length)
+            molduraZoom.sprite = costSprites[dadosCarta.custo];
+        
+        if (ImagemCarta != null) ImagemCarta.sprite = dadosCarta.imagem;
+        if (ImagemCartaZoom != null) ImagemCartaZoom.sprite = dadosCarta.imagem;
     }
+
+    
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -68,10 +82,21 @@ public class Card : NetworkBehaviour
     }
     public void StartDrag()
     {
+        
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         player = networkIdentity.GetComponent<PlayerController>();
+        
+        if (isDeckbuildCard){
+            return;
+        }
 
-        if (!isDraggable || !player.IsMyTurn()) return;
+        if (isDraggable == false) {
+            return;
+        };
+        if (!player.IsMyTurn()) {
+            Debug.Log("Arrastar desativado: isDraggable = " + isDraggable);
+            return;
+        };
         isDragging = true;
         startParent = transform.parent.gameObject;
         startPosition = transform.position;
@@ -83,7 +108,7 @@ public class Card : NetworkBehaviour
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         player = networkIdentity.GetComponent<PlayerController>();
 
-        if (!isDraggable || !player.IsMyTurn()) return;
+        if (!isDraggable || !player.IsMyTurn() || isDeckbuildCard) return;
         isDragging = false;
         if (isOverDropZone)
         {
@@ -109,6 +134,34 @@ public class Card : NetworkBehaviour
         if (isDragging)
         {
             transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        }
+    }
+    public void SetDraggable(bool value)
+    {
+        isDraggable = value;
+        
+    }
+
+     public void cardPointerEnter()
+    {
+        if(isDeckbuildCard){
+            transform.DOScale(originalScale * 1.2f, 0.3f); 
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto); 
+        }
+    }
+    public void cardPointerExit()
+    {
+        if(isDeckbuildCard){
+            transform.DOScale(originalScale, 0.3f);
+        }
+    }
+
+     public void cardClick()
+    {
+        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        player = networkIdentity.GetComponent<PlayerController>();
+        if(isDeckbuildCard){
+            player.cardDeckBuildClick(gameObject);
         }
     }
 }
