@@ -11,7 +11,7 @@ public class Cura : NetworkBehaviour
     [SyncVar(hook = nameof(OnFatorUrgenciaChanged))] public int fatorDeUrgencia = 1;
     [SyncVar(hook = nameof(OnAvancoCuraChanged))] public int avancoDaCura = 0;
 
-    [SyncVar] public int recurso = 0;
+    [SyncVar(hook = nameof(OnRecursoCuraChanged))] public int recurso = 0;
 
     public delegate void AtributoCuraChanged();
     public event AtributoCuraChanged OnCuraChanged;   
@@ -34,7 +34,10 @@ public class Cura : NetworkBehaviour
     {
         OnCuraChanged?.Invoke();
     } 
-    
+    private void OnRecursoCuraChanged(int oldValue, int newValue)
+    {
+        OnCuraChanged?.Invoke();
+    } 
     public void CalcularAvancoDaCura()
     {
         avancoDaCura = (int)(taxaDePesquisa * fatorDeUrgencia * 0.1);

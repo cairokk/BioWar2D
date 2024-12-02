@@ -595,8 +595,9 @@ public class PlayerController : NetworkBehaviour
         }
 
         int cardCost = cardComponent.dadosCarta.custo;
-
-        if (playerRecurso >= cardCost)
+        int currentResource = GetCurrentResource();
+        
+        if (currentResource >= cardCost)
         {
             cardComponent.SetCardSaturation(false); // Restaura a cor normal
             CmdTransferToDiscard(card);
@@ -605,7 +606,7 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            Debug.Log("Sem recurso" + playerRecurso + " " +cardCost);
+            Debug.Log("Sem recurso" + currentResource + " " +cardCost);
             cardComponent.SetCardSaturation(true); // Deixa a carta em tons de cinza
 
         }
@@ -617,10 +618,20 @@ public class PlayerController : NetworkBehaviour
         Card cardComponent = card.GetComponent<Card>();
         if (cardComponent == null) return;
 
-        playerRecurso -= cardComponent.dadosCarta.custo;
+        int cardCost = cardComponent.dadosCarta.custo;
+
+        if (playerTeam == "vacina")
+        {
+            var cura = FindObjectOfType<Cura>();
+            if (cura != null) cura.recurso -= cardCost;
+        }
+        else if (playerTeam == "virus")
+        {
+            var virus = FindObjectOfType<Virus>();
+            if (virus != null) virus.recurso -= cardCost;
+        }
 
         int cartaId = cardComponent.dadosCarta.id;
-        Debug.Log("----- carta jogada ao discarte deckbuild atual:" + gameController.playerVirusDeckBuild.Count);
         if (playerTeam == "virus")
         {
             gameController.playerVirusDiscarte.Add(cartaId);
@@ -631,7 +642,6 @@ public class PlayerController : NetworkBehaviour
         }
 
         RpcRemoveCardVisual(card);
-
     }
 
     [ClientRpc]
@@ -684,6 +694,21 @@ public class PlayerController : NetworkBehaviour
     }
 }
 
+    private int GetCurrentResource()
+    {
+        if (playerTeam == "vacina")
+        {
+            var cura = FindObjectOfType<Cura>();
+            return cura != null ? cura.recurso : 0;
+        }
+        else if (playerTeam == "virus")
+        {
+            var virus = FindObjectOfType<Virus>();
+            return virus != null ? virus.recurso : 0;
+        }
+        return 0; 
+    }
 
+    
 
 }

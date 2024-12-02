@@ -28,7 +28,9 @@ public class GameUIManager : MonoBehaviour
 
     private GameController gameController;
     private string lastCuraText = "";
+    private string lastCuraRecursoText = "";
     private string lastVirusText = "";
+    private string lastVirusRecursoText = "";
     private Vector2 panelOffScreenPosition  = new Vector2(-164, -129); // Ajuste conforme necessário.
     private Vector2 panelOnScreenPosition  = new Vector2(-58, -129);    
     private Vector2 buttonOffScreenPosition = new Vector2(-102, -134); // Ajuste conforme necessário
@@ -60,11 +62,12 @@ public class GameUIManager : MonoBehaviour
 
             string newCuraRecursoText = $"{gameController.atributosCura.recurso}";
 
-            if (newCuraText != lastCuraText)
+            if (newCuraText != lastCuraText || newCuraRecursoText != lastCuraRecursoText)
             {
                 curaText.text = newCuraText;
                 lastCuraText = newCuraText;
                 curaRecursos.text = newCuraRecursoText;
+                lastCuraRecursoText = newCuraRecursoText;
             }
         }
 

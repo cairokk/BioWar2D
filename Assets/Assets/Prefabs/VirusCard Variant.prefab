@@ -20,6 +20,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c6416d0873d071144b460c0aafed219a, type: 3}
+    - target: {fileID: 2207092214682005118, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.8573113
+      objectReference: {fileID: 0}
+    - target: {fileID: 2207092214682005118, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2207092214682005118, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.740566
+      objectReference: {fileID: 0}
+    - target: {fileID: 2207092214682005118, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292607933
+      objectReference: {fileID: 0}
     - target: {fileID: 2278849242409018652, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
       propertyPath: m_Name
       value: VirusCard Variant
@@ -147,6 +163,22 @@ PrefabInstance:
     - target: {fileID: 4962933526707629942, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767373068348400446, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.8573113
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767373068348400446, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767373068348400446, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.740566
+      objectReference: {fileID: 0}
+    - target: {fileID: 5767373068348400446, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292607933
       objectReference: {fileID: 0}
     - target: {fileID: 6445232805471317903, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
       propertyPath: m_Sprite
