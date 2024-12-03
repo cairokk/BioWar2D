@@ -79,11 +79,12 @@ public class GameUIManager : MonoBehaviour
                                  
 
             string newVirusRecursoText = $"{gameController.atributosVirus.recurso}";
-            if (newVirusText != lastVirusText)
+            if (newVirusText != lastVirusText || lastVirusRecursoText != newVirusRecursoText) 
             {
                 virusText.text = newVirusText;
                 lastVirusText = newVirusText;
                 virusRecursos.text = newVirusRecursoText;
+                lastVirusRecursoText = newVirusRecursoText;
                 
             }
         }
