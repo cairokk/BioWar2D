@@ -23,8 +23,7 @@ public class PlayerController : NetworkBehaviour
     public string playerTeam;
 
     [SyncVar] public bool verificadorTime = false;
-
-
+    private string nome = "player";
     [SyncVar] private int playerRecurso = 0;
     [SyncVar] private int enemyRecurso = 0;
     [SyncVar] private List<GameObject> deckBuildCards = new List<GameObject>();
@@ -39,6 +38,7 @@ public class PlayerController : NetworkBehaviour
 
     public string baseSelecionada = "Africa";
 
+    
     private void InitializeGameObjects()
     {
         playerArea = GameObject.Find("PlayerArea");
