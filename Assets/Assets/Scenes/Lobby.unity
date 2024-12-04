@@ -2620,10 +2620,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 74320696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0}
-  m_SizeDelta: {x: 231.9888, y: 818.0276}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &829379276
 MonoBehaviour:
@@ -2866,7 +2866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &946667650
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6426,7 +6426,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2060858824}
   m_HandleRect: {fileID: 2060858823}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6701,7 +6701,7 @@ RectTransform:
   m_Father: {fileID: 1727058282}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.99999994}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7393,27 +7393,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1847865509375283662, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1847865509375283662, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1847865509375283662, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 362
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1847865509375283662, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1847865509375283662, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 181
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1847865509375283662, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2277450113117341833, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_SizeDelta.x
@@ -7697,27 +7697,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6189075144601003077, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6189075144601003077, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6189075144601003077, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 362
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6189075144601003077, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6189075144601003077, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 181
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6189075144601003077, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6401702860027071119, guid: e891bba5e1791cf4f82a347df05ca4f2, type: 3}
       propertyPath: m_fontColor.b
@@ -8600,7 +8600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &5607108991065877728
 MonoBehaviour:
   m_ObjectHideFlags: 0
