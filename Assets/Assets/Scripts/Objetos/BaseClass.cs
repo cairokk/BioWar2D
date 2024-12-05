@@ -20,16 +20,21 @@ public class BaseClass : NetworkBehaviour
 
     public void CalcularNivelInfeccao(Virus virus)
     {
-        int fatorNivel = Mathf.Max(1,  nivelInfecao);
+        int fatorNivel = Mathf.Max(1, nivelInfecao);
         int fatorResiliencia = Mathf.Max(1, defesa);
-        int novoNivelDeInfeccao = virus.taxaDeInfeccao * fatorNivel  / 5 * fatorResiliencia ;
+        int novoNivelDeInfeccao = virus.taxaDeInfeccao * fatorNivel / 5 * fatorResiliencia;
         nivelInfecao = Mathf.Clamp(novoNivelDeInfeccao, nivelInfecao, 10);
-        
+
     }
 
     public void CalcularDanoDaRodada()
-    {   
-        vida -= DanoFuturo;
+    {
+        int danoAplicado = Mathf.Clamp(DanoFuturo, 0, nivelInfecao);
+
+        nivelInfecao -= danoAplicado;
+
+        vida -= Mathf.Clamp(danoAplicado, 0, vida);
+
         DanoFuturo = 0;
     }
 }

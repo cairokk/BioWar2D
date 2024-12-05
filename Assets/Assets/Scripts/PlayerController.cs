@@ -39,7 +39,7 @@ public class PlayerController : NetworkBehaviour
 
     public string baseSelecionada = "Africa";
 
-    
+
     private void InitializeGameObjects()
     {
         playerArea = GameObject.Find("PlayerArea");
@@ -77,21 +77,13 @@ public class PlayerController : NetworkBehaviour
         turnManager.InitializeGameController(gameController);
     }
 
-  
+
 
     [Command]
     public void CmdDealCards()
     {
         GameObject prefab = playerTeam == "vacina" ? prefabVacina : prefabVirus;
-        if (playerTeam == "vacina")
-            {
-                gameController.playerVacinaDeckBuild = ShuffleDeck(gameController.playerVacinaDeckBuild);
-            }
-        else
-            {
-                gameController.playerVirusDeckBuild = ShuffleDeck(gameController.playerVirusDeckBuild);
-            }
-        
+
         for (int i = 0; i < 5; i++)
         {
             int idCarta = DrawCard();
@@ -112,16 +104,15 @@ public class PlayerController : NetworkBehaviour
     public void CmdDealCardsToDeckBuild()
     {
         GameObject prefab = playerTeam == "vacina" ? prefabVacina : prefabVirus;
-        
+
 
         for (int i = 0; i < 5; i++)
-        {   
+        {
 
             int idCarta = DrawCardDeckBuild();
             Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
             GameObject newCard = Instantiate(prefab, new Vector2(0, 0), Quaternion.identity);
             Card carta = newCard.GetComponent<Card>();
-            Debug.Log("Pegando carta pro deckbuild id:" + idCarta );
 
             carta.dadosCarta = drawnCard;
             carta.UpdateCard(drawnCard);
@@ -141,7 +132,7 @@ public class PlayerController : NetworkBehaviour
 
         GameObject prefab = playerTeam == "vacina" ? prefabVacina : prefabVirus;
         int idCarta = DrawCardDeckBuild();
-        if (idCarta == -1) return; 
+        if (idCarta == -1) return;
 
         Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
         GameObject newCard = Instantiate(prefab, new Vector2(0, 0), Quaternion.identity);
@@ -150,12 +141,12 @@ public class PlayerController : NetworkBehaviour
         cardComponent.dadosCarta = drawnCard;
         cardComponent.UpdateCard(drawnCard);
         cardComponent.isDeckbuildCard = true;
-        cardComponent.SetDraggable(false); 
+        cardComponent.SetDraggable(false);
 
         NetworkServer.Spawn(newCard, connectionToClient);
         RpcShowCards(idCarta, newCard, "DealtToDeckBuild");
 
-         if (playerTeam == "vacina")
+        if (playerTeam == "vacina")
         {
             gameController.visibleCardsCura++;
         }
@@ -163,7 +154,7 @@ public class PlayerController : NetworkBehaviour
         {
             gameController.visibleCardsVirus++;
         }
-        
+
         RpcAtualizarDeckBuild(gameController.visibleCardsCura, gameController.visibleCardsVirus, gameController.playerVacinaDeckBuild, gameController.playerVirusDeckBuild);
 
     }
@@ -205,18 +196,14 @@ public class PlayerController : NetworkBehaviour
 
     int DrawCard()
     {
-        Debug.Log("Etnrei no DrawCard");
         if (playerTeam == "vacina")
         {
-            Debug.Log("Etnrei no Deck da Vacina");
             if (gameController.playerVacinaDeck.Count == 0)
             {
-                Debug.Log("Etnrei no deck zero da vacina");
 
-                // Reembaralhar descarte no deck
                 gameController.playerVacinaDeck.AddRange(gameController.playerVacinaDiscarte);
                 gameController.playerVacinaDiscarte.Clear();
-                //ShuffleDeck(gameController.playerVacinaDeck);
+                ShuffleDeck(gameController.playerVacinaDeck);
             }
 
             int cardId = gameController.playerVacinaDeck[0];
@@ -226,14 +213,11 @@ public class PlayerController : NetworkBehaviour
         }
         else
         {
-            Debug.Log("Etnrei no Deck da Virus");
             if (gameController.playerVirusDeck.Count == 0)
             {
-                Debug.Log("Etnrei no deck zero da Virus");
-                // Reembaralhar descarte no deck
                 gameController.playerVirusDeck.AddRange(gameController.playerVirusDiscarte);
                 gameController.playerVirusDiscarte.Clear();
-                //ShuffleDeck(gameController.playerVirusDeck);
+                ShuffleDeck(gameController.playerVirusDeck);
             }
 
             int cardId = gameController.playerVirusDeck[0];
@@ -245,23 +229,32 @@ public class PlayerController : NetworkBehaviour
 
     int DrawCardDeckBuild()
     {
-        List<int> currentDeckBuild = playerTeam == "vacina"  ? gameController.playerVacinaDeckBuild : gameController.playerVirusDeckBuild;
-        if (currentDeckBuild.Count == 0) return -1; // No cards to draw
-        
-        currentDeckBuild = ShuffleDeck(currentDeckBuild);
-        int cardId = currentDeckBuild[0];
-        currentDeckBuild.RemoveAt(0);
 
-        if(playerTeam == "vacina"){
-            RpcAtualizarDeckBuild(gameController.visibleCardsCura, gameController.visibleCardsVirus, currentDeckBuild, gameController.playerVirusDeckBuild);
+        if (playerTeam == "vacina")
+        {
+            if (gameController.playerVacinaDeckBuild.Count == 0) return -1; // No cards to draw
 
-        }else{
-            RpcAtualizarDeckBuild(gameController.visibleCardsCura, gameController.visibleCardsVirus,  gameController.playerVacinaDeckBuild, currentDeckBuild);
+            gameController.playerVacinaDeckBuild = ShuffleDeck(gameController.playerVacinaDeckBuild);
+            int cardId = gameController.playerVacinaDeckBuild[0];
+            gameController.playerVacinaDeckBuild.RemoveAt(0);
+            RpcAtualizarDeckBuild(gameController.visibleCardsCura, gameController.visibleCardsVirus, gameController.playerVacinaDeckBuild, gameController.playerVirusDeckBuild);
+
+            return cardId;
+
         }
 
-        
-        
-        return cardId;
+        else
+        {
+            if (gameController.playerVirusDeckBuild.Count == 0) return -1; // No cards to draw
+
+            gameController.playerVirusDeckBuild = ShuffleDeck(gameController.playerVirusDeckBuild);
+            int cardId = gameController.playerVirusDeckBuild[0];
+            gameController.playerVirusDeckBuild.RemoveAt(0);
+            RpcAtualizarDeckBuild(gameController.visibleCardsCura, gameController.visibleCardsVirus, gameController.playerVacinaDeckBuild, gameController.playerVirusDeckBuild);
+
+            return cardId;
+        }
+
     }
 
     [ClientRpc]
@@ -296,8 +289,10 @@ public class PlayerController : NetworkBehaviour
     }
 
 
-    private void RecupearCartasAux(){
-        foreach (var card in gameController.playerVirusDeckBuildAux){
+    private void RecupearCartasAux()
+    {
+        foreach (var card in gameController.playerVirusDeckBuildAux)
+        {
             gameController.playerVirusDeckBuild.Add(card);
             gameController.playerVirusDeckBuildAux.Remove(card);
         }
@@ -333,7 +328,7 @@ public class PlayerController : NetworkBehaviour
         }
         RpcDiscardCard(card);
     }
-     [Command]
+    [Command]
     public void CmdDiscardCardHand(GameObject card)
     {
         Debug.Log(card == null);
@@ -349,31 +344,31 @@ public class PlayerController : NetworkBehaviour
         }
         RpcDiscardCardHand(card);
     }
-    
+
     [ClientRpc]
     public void RpcDiscardCard(GameObject card)
     {
-        
+
         if (HistoryArea == null)
         {
             Debug.LogWarning("HistoryArea não foi encontrado, inicializando novamente.");
             HistoryArea = GameObject.Find("History");
         }
 
-         CardFlipper cardFlipper = card.GetComponent<CardFlipper>();
+        CardFlipper cardFlipper = card.GetComponent<CardFlipper>();
         if (cardFlipper != null)
         {
             cardFlipper.EnsureFaceUp();
         }
 
         card.transform.SetParent(HistoryArea.transform, false);
-    
+
         Debug.Log("Entrei no metodo RPC de discartar uma carta");
         if (isOwned)
         {
             playerHand.Remove(card);
         }
-        
+
 
         int cartaId = card.GetComponent<Card>().dadosCarta.id;
         if (playerTeam == "virus")
@@ -390,7 +385,7 @@ public class PlayerController : NetworkBehaviour
     [ClientRpc]
     public void RpcDiscardCardHand(GameObject card)
     {
-         CardFlipper cardFlipper = card.GetComponent<CardFlipper>();
+        CardFlipper cardFlipper = card.GetComponent<CardFlipper>();
         if (cardFlipper != null)
         {
             cardFlipper.EnsureFaceUp();
@@ -403,7 +398,7 @@ public class PlayerController : NetworkBehaviour
         {
             playerHand.Remove(card);
         }
-        
+
 
         int cartaId = card.GetComponent<Card>().dadosCarta.id;
         if (playerTeam == "virus")
@@ -476,13 +471,13 @@ public class PlayerController : NetworkBehaviour
                 card.transform.SetParent(enemyArea.transform, false);
             }
         }
-        if(type == "DealtToDeckBuild") 
+        if (type == "DealtToDeckBuild")
         {
-            cardComponent.SetDraggable(false); 
+            cardComponent.SetDraggable(false);
             cardComponent.isDeckbuildCard = true;
 
             if (isOwned)
-            {   
+            {
                 card.transform.SetParent(playerDeckBuildArea.transform, false);
             }
             else
@@ -521,6 +516,7 @@ public class PlayerController : NetworkBehaviour
             DiscardHand();
             //RecoverDeckBuildCards();
             CmdDealCards();
+            CmdZerarRecurso();
             //ClearDeckBuild();
             //CmdDealCardsToDeckBuild();
             CmdEndTurn();
@@ -536,6 +532,21 @@ public class PlayerController : NetworkBehaviour
         {
             turnManager.RpcEndCurrentTurn();
         }
+    }
+
+    [Command]
+    public void CmdZerarRecurso()
+    {
+        gameController.atributosCura.recurso = 0;
+        gameController.atributosVirus.recurso = 0;
+        RpcZerarRecurso();
+    }
+
+    [ClientRpc]
+    void RpcZerarRecurso()
+    {
+        gameController.atributosCura.recurso = 0;
+        gameController.atributosVirus.recurso = 0;
     }
 
 
@@ -624,7 +635,8 @@ public class PlayerController : NetworkBehaviour
         string tipoCarta = cardComponent.dadosCarta.id > 100 ? "vacina" : "virus";
         Debug.Log(cardComponent.dadosCarta.id);
         bool cartaOwner = tipoCarta == playerTeam ? true : false;
-        if (!IsMyTurn()){
+        if (!IsMyTurn())
+        {
             Debug.LogError("Não é seu turno");
             return;
         }
@@ -634,53 +646,55 @@ public class PlayerController : NetworkBehaviour
             Debug.LogError("null");
             return;
         }
-        Debug.Log("DONO DA CARTA=---");
-        Debug.Log(cartaOwner);
+
         int cardId = cardComponent.dadosCarta.id;
+        int cardCost = cardComponent.dadosCarta.custo;
+        int currentResource = GetCurrentResource();
 
         if (!cartaOwner)
         {
-            if(playerTeam == "vacina"){
-                gameController.visibleCardsVirus--;
-                gameController.playerVirusDeckBuild.Add(cardId);
-            }else{
-                gameController.visibleCardsCura--;
-                gameController.playerVacinaDeckBuild.Add(cardId);
+            if (currentResource >= cardCost)
+            {
+                if (playerTeam == "vacina")
+                {
+                    gameController.visibleCardsVirus--;
+                    gameController.playerVirusDeckBuild.Add(cardId);
+                }
+                else
+                {
+                    gameController.visibleCardsCura--;
+                    gameController.playerVacinaDeckBuild.Add(cardId);
 
+                }
+                CmdReturnCardToOpponent(card, cardId, gameController.visibleCardsCura, gameController.visibleCardsVirus, gameController.playerVacinaDeckBuild, gameController.playerVirusDeckBuild);
+                return;
             }
-            CmdReturnCardToOpponent(card, cardId,gameController.visibleCardsCura ,gameController.visibleCardsVirus ,gameController.playerVacinaDeckBuild ,gameController.playerVirusDeckBuild  );
-            return;
+            else
+            {
+                Debug.Log("Sem recurso" + currentResource + " " + cardCost);
+                cardComponent.SetCardSaturation(true);
+            }
         }
-        if(playerTeam == "vacina"){
-            gameController.visibleCardsCura--;
 
-        }else{
-            gameController.visibleCardsVirus--;
-
-        }
-        CmdAtualizarDeckBuild(gameController.visibleCardsCura ,gameController.visibleCardsVirus ,gameController.playerVacinaDeckBuild ,gameController.playerVirusDeckBuild  );
-
-
-        int cardCost = cardComponent.dadosCarta.custo;
-        int currentResource = GetCurrentResource();
-        
         if (currentResource >= cardCost)
         {
             cardComponent.SetCardSaturation(false); // Restaura a cor normal
             CmdTransferToDiscard(card);
             CmdDealOneCardToDeckBuild();
+            CmdAtualizarDeckBuild(gameController.visibleCardsCura, gameController.visibleCardsVirus, gameController.playerVacinaDeckBuild, gameController.playerVirusDeckBuild);
+
 
         }
         else
         {
-            Debug.Log("Sem recurso" + currentResource + " " +cardCost);
+            Debug.Log("Sem recurso" + currentResource + " " + cardCost);
             cardComponent.SetCardSaturation(true); // Deixa a carta em tons de cinza
 
         }
     }
 
     [Command]
-    private void CmdReturnCardToOpponent(GameObject card, int cardId, int visibleCardsCura, int visibleCardsVirus, List<int> VacinaDeckBuild,List<int> VirusDeckBuild)
+    private void CmdReturnCardToOpponent(GameObject card, int cardId, int visibleCardsCura, int visibleCardsVirus, List<int> VacinaDeckBuild, List<int> VirusDeckBuild)
     {
         Debug.Log(playerTeam);
         Debug.Log(playerTeam);
@@ -692,39 +706,37 @@ public class PlayerController : NetworkBehaviour
         gameController.visibleCardsVirus = visibleCardsVirus;
         gameController.playerVacinaDeckBuild = VacinaDeckBuild;
         gameController.playerVirusDeckBuild = VirusDeckBuild;
-        RpcAtualizarDeckBuild(visibleCardsCura, visibleCardsVirus, VacinaDeckBuild,VirusDeckBuild);
+        RpcAtualizarDeckBuild(visibleCardsCura, visibleCardsVirus, VacinaDeckBuild, VirusDeckBuild);
         RpcRemoveCardVisual(card);
     }
     [ClientRpc]
-    public void RpcAtualizarDeckBuild(int visibleCardsCura, int visibleCardsVirus, List<int> VacinaDeckBuild,List<int> VirusDeckBuild){
-        Debug.Log("ENTRANDO NO RPC ATUALZIARDDEBKUILD");
-        Debug.Log(visibleCardsCura);
-        Debug.Log(visibleCardsVirus);
+    public void RpcAtualizarDeckBuild(int visibleCardsCura, int visibleCardsVirus, List<int> VacinaDeckBuild, List<int> VirusDeckBuild)
+    {
+
         gameController.visibleCardsCura = visibleCardsCura;
         gameController.visibleCardsVirus = visibleCardsVirus;
         gameController.playerVacinaDeckBuild = VacinaDeckBuild;
-        gameController.playerVacinaDeckBuild = VirusDeckBuild;
+        gameController.playerVirusDeckBuild = VirusDeckBuild;
     }
     [Command]
-    public void CmdAtualizarDeckBuild(int visibleCardsCura, int visibleCardsVirus, List<int> VacinaDeckBuild,List<int> VirusDeckBuild){
+    public void CmdAtualizarDeckBuild(int visibleCardsCura, int visibleCardsVirus, List<int> VacinaDeckBuild, List<int> VirusDeckBuild)
+    {
         Debug.Log("ENTRANDO NO Cmd ATUALZIARDDEBKUILD");
         Debug.Log(visibleCardsCura);
         Debug.Log(visibleCardsVirus);
         gameController.visibleCardsCura = visibleCardsCura;
         gameController.visibleCardsVirus = visibleCardsVirus;
         gameController.playerVacinaDeckBuild = VacinaDeckBuild;
-        gameController.playerVacinaDeckBuild = VirusDeckBuild;
+        gameController.playerVirusDeckBuild = VirusDeckBuild;
 
-        RpcAtualizarDeckBuild(visibleCardsCura, visibleCardsVirus, VacinaDeckBuild,VirusDeckBuild);
+        RpcAtualizarDeckBuild(visibleCardsCura, visibleCardsVirus, VacinaDeckBuild, VirusDeckBuild);
     }
-    
+
 
     [Command]
     private void CmdTransferToDiscard(GameObject card)
     {
-        Debug.Log("Discard");
-        Debug.Log("Discard");
-        Debug.Log("Discard");
+
         Card cardComponent = card.GetComponent<Card>();
         if (cardComponent == null) return;
 
@@ -732,13 +744,11 @@ public class PlayerController : NetworkBehaviour
 
         if (playerTeam == "vacina")
         {
-            var cura = FindObjectOfType<Cura>();
-            if (cura != null) cura.recurso -= cardCost;
+            gameController.atributosCura.recurso -= cardCost;
         }
         else if (playerTeam == "virus")
         {
-            var virus = FindObjectOfType<Virus>();
-            if (virus != null) virus.recurso -= cardCost;
+            gameController.atributosVirus.recurso -= cardCost;
         }
 
         int cartaId = cardComponent.dadosCarta.id;
@@ -750,13 +760,25 @@ public class PlayerController : NetworkBehaviour
         {
             gameController.playerVacinaDiscarte.Add(cartaId);
         }
+
+        RpcAtualizarAtributos(gameController.atributosCura, gameController.atributosVirus);
         RpcTransferToDiscard(cartaId);
         RpcRemoveCardVisual(card);
 
     }
+
     [ClientRpc]
-    public void RpcTransferToDiscard(int cartaId){
-         if (playerTeam == "virus")
+    public void RpcAtualizarAtributos(Cura cura, Virus virus)
+    {
+        gameController.atributosCura = cura;
+        gameController.atributosVirus = virus;
+
+    }
+
+    [ClientRpc]
+    public void RpcTransferToDiscard(int cartaId)
+    {
+        if (playerTeam == "virus")
         {
             gameController.playerVirusDiscarte.Add(cartaId);
         }
@@ -767,40 +789,36 @@ public class PlayerController : NetworkBehaviour
 
     }
 
-    
+
 
     [ClientRpc]
     private void RpcRemoveCardVisual(GameObject card)
     {
-        Debug.Log("DESTRUINDO");
-        Debug.Log("DESTRUINDO");
-        Debug.Log("DESTRUINDO");
-
         Destroy(card);
         AtualizarUIBaralhos();
     }
 
-    
+
 
     private void RecoverDeckBuildCards()
-{
-    if (playerTeam == "virus")
     {
-        foreach (var cardId in gameController.playerVirusDeckBuildAux)
+        if (playerTeam == "virus")
         {
-            gameController.playerVirusDeckBuild.Add(cardId);
+            foreach (var cardId in gameController.playerVirusDeckBuildAux)
+            {
+                gameController.playerVirusDeckBuild.Add(cardId);
+            }
+            gameController.playerVirusDeckBuildAux.Clear();
         }
-        gameController.playerVirusDeckBuildAux.Clear(); 
-    }
-    else
-    {
-        foreach (var cardId in gameController.playerVacinaDeckBuildAux)
+        else
         {
-            gameController.playerVacinaDeckBuild.Add(cardId);
+            foreach (var cardId in gameController.playerVacinaDeckBuildAux)
+            {
+                gameController.playerVacinaDeckBuild.Add(cardId);
+            }
+            gameController.playerVacinaDeckBuildAux.Clear();
         }
-        gameController.playerVacinaDeckBuildAux.Clear(); 
     }
-}
 
     private int GetCurrentResource()
     {
@@ -814,9 +832,9 @@ public class PlayerController : NetworkBehaviour
             var virus = FindObjectOfType<Virus>();
             return virus != null ? virus.recurso : 0;
         }
-        return 0; 
+        return 0;
     }
 
-    
+
 
 }

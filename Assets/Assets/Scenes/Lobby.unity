@@ -1024,6 +1024,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c3be0750e963dd4c95898f037602d57, type: 2}
   - {fileID: 11400000, guid: a681e3e0ba8aac44aab083380f390d78, type: 2}
   - {fileID: 11400000, guid: 7c42911144825184a967da4dfa7d4e68, type: 2}
+  - {fileID: 11400000, guid: 84547849612bd3a4a95647f1c995072a, type: 2}
+  - {fileID: 11400000, guid: 0f1379e0b8fec14458b71ad78f0b99d4, type: 2}
+  - {fileID: 11400000, guid: 96b74687488a4384bad5abffd7a98ef4, type: 2}
+  - {fileID: 11400000, guid: 9005e948d3fdc224d96266fe3c588422, type: 2}
+  - {fileID: 11400000, guid: b7e9f8025ae3b9643a81701904cd154a, type: 2}
+  - {fileID: 11400000, guid: 898880705b740d3458b073aa02191aea, type: 2}
+  - {fileID: 11400000, guid: 6c832c033609f0e448e9f7133891f194, type: 2}
+  - {fileID: 11400000, guid: d463cc950e0e9394eba2b5cb09b64aeb, type: 2}
   - {fileID: 11400000, guid: ff13c484b074da645a02e7a432dc100e, type: 2}
   - {fileID: 11400000, guid: 5998b3ce30d53834ea71839c47419bbb, type: 2}
 --- !u!4 &299766246
@@ -2311,6 +2319,8 @@ MonoBehaviour:
   playerVacinaDeckBuildAux: 
   playerVirusDiscarte: 
   playerVacinaDiscarte: 
+  visibleCardsVirus: 5
+  visibleCardsCura: 5
   deckVirus: {fileID: 11400000, guid: b55f701b15591a342a34ce84b2a985b8, type: 2}
   deckVacina: {fileID: 11400000, guid: 56ad3b9050fb3484d89a0d68570283b1, type: 2}
   deckBuildVirus: {fileID: 11400000, guid: 14e6baa7e8b499c4aa60b439b704d332, type: 2}
@@ -2844,12 +2854,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   todosOsEfeitos:
+  - {fileID: 11400000, guid: 7b94c5c074aa20343b12cef06e413f1a, type: 2}
+  - {fileID: 11400000, guid: e7e5da6fab29d7f4e96810c1e9e32280, type: 2}
+  - {fileID: 11400000, guid: 49546de980c9555489414cc3cad2d1c0, type: 2}
   - {fileID: 11400000, guid: 9e3d3181289042b47a846fa3a0265aee, type: 2}
-  - {fileID: 11400000, guid: d451ab43d4883834b87e27a1b13bbcfb, type: 2}
-  - {fileID: 11400000, guid: e2273b3345f1b6649a978ebab85770d2, type: 2}
-  - {fileID: 11400000, guid: dd1c71dfb083645439e6c45ac1ebf26a, type: 2}
+  - {fileID: 11400000, guid: fa4d656022f95194d83636b986799f00, type: 2}
   - {fileID: 11400000, guid: 6bcea39f12ebfc14f99656014cd8f46d, type: 2}
+  - {fileID: 11400000, guid: 9bb1aaaa2f0dba244a818273b1251027, type: 2}
+  - {fileID: 11400000, guid: cfaa6aae0df182c4684992e885530068, type: 2}
   - {fileID: 11400000, guid: 542c7f87cfa84ed49ae1fb83f5febe67, type: 2}
+  - {fileID: 11400000, guid: d451ab43d4883834b87e27a1b13bbcfb, type: 2}
+  - {fileID: 11400000, guid: a99539d1894a5a044a9af635c7014d35, type: 2}
+  - {fileID: 11400000, guid: e2273b3345f1b6649a978ebab85770d2, type: 2}
+  - {fileID: 11400000, guid: ffce4be0195bb5142bd2f181a6b76605, type: 2}
+  - {fileID: 11400000, guid: dd1c71dfb083645439e6c45ac1ebf26a, type: 2}
+  - {fileID: 11400000, guid: 072dd0cbf33068c458b8051d4f81b84c, type: 2}
+  - {fileID: 11400000, guid: f349244c1e6181246a50f7213a2e6473, type: 2}
+  - {fileID: 11400000, guid: e2bf3f621bfaead48a72c041e8332b64, type: 2}
+  - {fileID: 11400000, guid: d843b3a4516bc1047a74e2b8f1c18e76, type: 2}
 --- !u!1 &946667649
 GameObject:
   m_ObjectHideFlags: 0
@@ -6428,8 +6450,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2060858824}
   m_HandleRect: {fileID: 2060858823}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

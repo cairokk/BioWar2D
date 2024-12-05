@@ -74,7 +74,6 @@ public class GameController : NetworkBehaviour
         
         playerVacinaDeckBuild.AddRange(deckBuildVacina.initialDeck);
         playerVirusDeckBuild.AddRange(deckBuildVirus.initialDeck);
-        Debug.Log(playerVirusDeckBuild.Count);
 
 
         RpcStartGame();
