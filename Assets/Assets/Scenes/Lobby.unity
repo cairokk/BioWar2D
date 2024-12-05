@@ -2385,7 +2385,7 @@ MonoBehaviour:
   syncInterval: 0
   taxaDeInfeccao: 1
   taxaDeMortalidade: 1
-  recurso: 0
+  recurso: 20
 --- !u!1 &755478487
 GameObject:
   m_ObjectHideFlags: 0
@@ -8600,7 +8600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &5607108991065877728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8663,7 +8663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5e8a30b623596f742af147f543a10cbe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1399ced84a754574caf5b59fab8415dc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
