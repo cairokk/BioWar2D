@@ -52,17 +52,31 @@ public class TurnController : NetworkBehaviour
    
     private void StartVirusTurn()
     {
-
-        // Habilite o controle para o jogador do vírus
         currentTurn = TurnState.TurnoVirus;
-
+        foreach (var player in FindObjectsOfType<PlayerController>())
+        {
+            player.StartTurnCheckDeckBuild();
+        }
     }
  
     private void StartCuraTurn()
     {
 
         currentTurn = TurnState.TurnoCura;
-
+        Debug.Log("Turn Cura");
+        Debug.Log("Turn Cura");
+        Debug.Log("Turn Cura");
+        Debug.Log("Turn Cura");
+        Debug.Log("Turn Cura");
+        Debug.Log("Turn Cura");
+        Debug.Log(players);
+        foreach (var player in FindObjectsOfType<PlayerController>())
+        {
+            
+            player.StartTurnCheckDeckBuild();
+            
+        }
+        //StartTurnCheckDeckBuild
     }
 
 

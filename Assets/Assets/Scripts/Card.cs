@@ -29,8 +29,7 @@ public class Card : NetworkBehaviour
     public Image molduraZoom;
     public bool isDeckbuildCard = false;
     private Vector3 originalScale;
-
-
+    
 
     // Start is called before the first frame update
     void Start()

@@ -33,7 +33,8 @@ public class GameController : NetworkBehaviour
     public List<int> playerVacinaDeckBuildAux = new();
     public List<int> playerVirusDiscarte = new();
     public List<int> playerVacinaDiscarte = new();
-
+    [SyncVar] public int visibleCardsVirus = 5; 
+    [SyncVar] public int visibleCardsCura = 5; 
 
     public Deck deckVirus;
     public Deck deckVacina;
@@ -92,7 +93,7 @@ public class GameController : NetworkBehaviour
 
         foreach (var player in FindObjectsOfType<PlayerController>())
         {
-
+            player.baseSelecionada = "Africa";
             player.AtualizarUIBaralhos();
             player.CmdDealCards();
             player.CmdDealCardsToDeckBuild();
