@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 9
   nome: FakeNews
-  descricao: --
-  custo: 0
+  descricao: + 2 Dano em uma regiao / + 1 Taxa de mortalidade / - 2 Taxa de pesquisa
+  custo: 5
   imagem: {fileID: 21300000, guid: 2bb46e345aa0cb04aa67328b8f45ad1f, type: 3}
-  efeitos: 
+  efeitos: 470000003d0000000f000000

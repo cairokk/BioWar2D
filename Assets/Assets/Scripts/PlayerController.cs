@@ -110,10 +110,13 @@ public class PlayerController : NetworkBehaviour
         {
 
             int idCarta = DrawCardDeckBuild();
+            Debug.Log("IDCARTA");
+            Debug.Log(idCarta);
+
             Carta drawnCard = CartaDatabase.Instance.GetCartaById(idCarta);
             GameObject newCard = Instantiate(prefab, new Vector2(0, 0), Quaternion.identity);
             Card carta = newCard.GetComponent<Card>();
-
+            Debug.Log(drawnCard);
             carta.dadosCarta = drawnCard;
             carta.UpdateCard(drawnCard);
             carta.isDeckbuildCard = true;

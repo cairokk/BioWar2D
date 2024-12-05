@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 11
   nome: "Falha Respirat\xF3ria"
-  descricao: "+ 1 nivel de infec\xE7\xE3o da regi\xE3o selecionada"
-  custo: 0
+  descricao: + 2 dano em uma regiao / + 1 Infeccao em uma regiao / -2 Taxa de pesquisa
+  custo: 7
   imagem: {fileID: 21300000, guid: 218894716630e25488e9c173def14296, type: 3}
-  efeitos: 4700000005000000
+  efeitos: 47000000050000000f000000

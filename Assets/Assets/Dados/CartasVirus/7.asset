@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 7
   nome: "Muta\xE7\xE3o: Contamina\xE7\xE3o A\xE9rea"
-  descricao: "+ 1 nivel de infec\xE7\xE3o da regi\xE3o selecionada"
+  descricao: + 2 Nivel de infeccao de uma regiao / + 1 Taxa de mortalidade
   custo: 4
   imagem: {fileID: 21300000, guid: 1cff0bbb3e22af7459e0c25c5315b63b, type: 3}
   efeitos: 340000003d000000

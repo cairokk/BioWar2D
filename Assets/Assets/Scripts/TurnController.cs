@@ -15,7 +15,8 @@ public class TurnController : NetworkBehaviour
 
     private List<PlayerController> players;
     private GameController gameController;
-
+    public GameObject virusWinPanel; // Assign via Inspector
+    public GameObject curaWinPanel; // Assign via Inspector
     [SyncVar]
     public TurnState currentTurn;
 
@@ -116,6 +117,7 @@ public class TurnController : NetworkBehaviour
         }
 
     }
+
     private void AplicarAvancoDaCura()
     {
         gameController.atributosCura.CalcularAvancoDaCura();
@@ -125,24 +127,43 @@ public class TurnController : NetworkBehaviour
         bool virusWins = false;
         bool curaWins = false;
         virusWins = !regioes.Any(r => r.regiao.vida > 0);
-        curaWins = gameController.atributosCura.taxaDacura >= 10;
+        curaWins = gameController.atributosCura.avancoDaCura >= 10;
 
-
+        Debug.Log("VERIFICANO SE ALGUEM GANHOU");
+        Debug.Log("VERIFICANO SE ALGUEM GANHOU");
+        
         if (virusWins)
         {
-            RpcEndGame("Vírus venceu!");
+            Debug.Log("VIRUS WIN");
+            EndGame("Virus venceu!");
         }
         else if (curaWins)
         {
-            RpcEndGame("Cura venceu!");
+            Debug.Log("CURA WIN");
+            EndGame("Cura venceu!");
         }
     }
 
-    [ClientRpc]
-    private void RpcEndGame(string message)
+   
+    private void EndGame(string message)
     {
         Debug.Log(message);
-        // Mostre uma tela de final de jogo para os jogadores
+        
+        if (message == "Virus venceu!")
+        {
+            virusWinPanel.SetActive(true);
+        }
+        else if (message == "Cura venceu!")
+        {
+            curaWinPanel.SetActive(true); 
+        }
+    }
+    public void InitializeWinPanels(GameObject virusPanel, GameObject curaPanel)
+    {
+        virusWinPanel = virusPanel;
+        virusWinPanel.SetActive(false);
+        curaWinPanel = curaPanel;
+        curaWinPanel.SetActive(false);
     }
 
     [ClientRpc]

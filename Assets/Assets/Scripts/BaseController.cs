@@ -13,6 +13,8 @@ public class BaseController : NetworkBehaviour
     public TextMeshProUGUI textoVida;
     public TextMeshProUGUI textoDanoFuturos;
     public TextMeshProUGUI textoInfeccao;
+    public TextMeshProUGUI defesa;
+
     private Image imagem;
     private Color originalColor;
     
@@ -37,6 +39,8 @@ public class BaseController : NetworkBehaviour
         textoVida.text = regiao.vida.ToString();
         textoDanoFuturos.text = regiao.DanoFuturo.ToString();
         textoInfeccao.text = regiao.nivelInfecao.ToString();
+        defesa.text = regiao.defesa.ToString();
+
     }
 
 
@@ -55,6 +59,8 @@ public class BaseController : NetworkBehaviour
         textoVida.text = regiao.vida.ToString();
         textoDanoFuturos.text = regiao.DanoFuturo.ToString();
         textoInfeccao.text = regiao.nivelInfecao.ToString();
+        defesa.text = regiao.defesa.ToString();
+
     }
 
     public void UpdateUI()
@@ -62,6 +68,8 @@ public class BaseController : NetworkBehaviour
         textoVida.text = regiao.vida.ToString();
         textoDanoFuturos.text = regiao.DanoFuturo.ToString();
         textoInfeccao.text = regiao.nivelInfecao.ToString();
+        defesa.text = regiao.defesa.ToString();
+
     }
 
     public void OnClick()

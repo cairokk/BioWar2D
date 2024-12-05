@@ -35,7 +35,8 @@ public class GameController : NetworkBehaviour
     public List<int> playerVacinaDiscarte = new();
     [SyncVar] public int visibleCardsVirus = 5; 
     [SyncVar] public int visibleCardsCura = 5; 
-
+    public GameObject virusWinPanel;
+    public GameObject curaWinPanel;
     public Deck deckVirus;
     public Deck deckVacina;
 
@@ -52,6 +53,8 @@ public class GameController : NetworkBehaviour
         lobbyComponents = new List<GameObject>(GameObject.FindGameObjectsWithTag("Lobby"));
 
         turnController = FindObjectOfType<TurnController>();
+        turnController.InitializeWinPanels(virusWinPanel, curaWinPanel);
+
     }
 
     [Server]

@@ -12,6 +12,26 @@ PrefabInstance:
       propertyPath: _assetId
       value: 2590452356
       objectReference: {fileID: 0}
+    - target: {fileID: 203106027129450195, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.8235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 203106027129450195, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.95294124
+      objectReference: {fileID: 0}
+    - target: {fileID: 203106027129450195, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 203106027129450195, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292015030
+      objectReference: {fileID: 0}
+    - target: {fileID: 729969809287567342, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1110629706993773184, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -184,6 +204,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 02d3ade513ead15408e872eb55a90810, type: 3}
+    - target: {fileID: 8389597503799008910, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.8235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389597503799008910, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.95294124
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389597503799008910, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.7137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389597503799008910, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292015030
+      objectReference: {fileID: 0}
     - target: {fileID: 8459717841628280331, guid: b042aa166923fc546a089f2d3b0dafab, type: 3}
       propertyPath: cardBack
       value: 

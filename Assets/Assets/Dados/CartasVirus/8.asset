@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 8
   nome: "Crise Econ\xF4mica"
-  descricao: "+ 1 nivel de infec\xE7\xE3o da regi\xE3o selecionada"
+  descricao: + 3 Recurso Viral / + 2 Taxa de Infeccao / -1 defesa da base
   custo: 4
-  imagem: {fileID: 21300000, guid: c5880de0d93f9f343b7285e0d7fe302a, type: 3}
+  imagem: {fileID: 21300000, guid: 257c6ec666c6bfd4f9c63b46ba37981e, type: 3}
   efeitos: 0c0000003400000021000000

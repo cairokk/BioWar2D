@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 10
   nome: Surto Viral
-  descricao: "+ 1 nivel de infec\xE7\xE3o da regi\xE3o selecionada"
+  descricao: '- 1 Avanco de cura / + 2 infeccao em uma regiao'
   custo: 6
   imagem: {fileID: 21300000, guid: 811bc010d7cc0f84181ac09efd283ecc, type: 3}
   efeitos: 1600000034000000
