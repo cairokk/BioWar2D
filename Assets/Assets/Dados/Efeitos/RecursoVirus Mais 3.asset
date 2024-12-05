@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5fe8671b8de8d546982921b3891f020, type: 3}
-  m_Name: 1
+  m_Script: {fileID: 11500000, guid: c9db29cbfca836a4b82226ff98ce40eb, type: 3}
+  m_Name: RecursoVirus Mais 3
   m_EditorClassIdentifier: 
-  id: 1
-  nome: "Propaga\xE7\xE3o Viral"
-  descricao: Aumenta o recurso do virus em 1
-  custo: 0
-  imagem: {fileID: 21300000, guid: 5cf58e9ec0be1eb4eaa3cc76c191196d, type: 3}
-  efeitos: 0a000000
+  id: 13
+  qtdRecurso: 3

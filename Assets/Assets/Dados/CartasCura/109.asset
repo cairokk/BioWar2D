@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 109
   m_EditorClassIdentifier: 
   id: 109
-  nome: "Posto Avan\xE7ado"
-  descricao: "+ 3 de Recurso / - 1 de nivel de Infec\xE7\xE3o na Regi\xE3o Selecionada"
+  nome: Plano de Saude do Governo
+  descricao: "- 2 na taxa de mortalidade / + 1 de defesa em uma Regi\xE3o Selecionada"
   custo: 5
   imagem: {fileID: 21300000, guid: 34cdc25226a9e6f4699f6e112e083732, type: 3}
   efeitos: 3e00000003000000

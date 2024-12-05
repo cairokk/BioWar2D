@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5fe8671b8de8d546982921b3891f020, type: 3}
   m_Name: 111
   m_EditorClassIdentifier: 
-  id: 110
-  nome: Parceria Internacional
-  descricao: "+ 2 no Avan\xE7o da Vacina / + 2 de Recurso"
+  id: 111
+  nome: Quarentena
+  descricao: + 3 na Taxa de pesquisa / + 2 na defesa de uma regiao / + 1 avanco de
+    cura
   custo: 7
   imagem: {fileID: 21300000, guid: de3e342111528b54093199aafe185d76, type: 3}
   efeitos: 0d0000001f00000002000000

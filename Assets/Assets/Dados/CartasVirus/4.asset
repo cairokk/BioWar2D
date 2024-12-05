@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5fe8671b8de8d546982921b3891f020, type: 3}
-  m_Name: 2
+  m_Name: 4
   m_EditorClassIdentifier: 
-  id: 2
-  nome: "Muta\xE7\xE3o: Infec\xE7\xE3o"
-  descricao: "+ 1 na taxa de infec\xE7\xE3o do Virus"
-  custo: 0
-  imagem: {fileID: 21300000, guid: fd3e9b8f61e18f64e86b5d908e2d6ae2, type: 3}
-  efeitos: 04000000
+  id: 4
+  nome: Novo Sintoma
+  descricao: + 1 Taxa de Mortalidade / 2 Taxa de Infeccao do virus
+  custo: 1
+  imagem: {fileID: 21300000, guid: 3e5e90f107005b94b88cd61c8600e5a8, type: 3}
+  efeitos: 3d00000034000000
