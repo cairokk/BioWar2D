@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5fe8671b8de8d546982921b3891f020, type: 3}
+  m_Name: 111
+  m_EditorClassIdentifier: 
+  id: 110
+  nome: Parceria Internacional
+  descricao: "+ 2 no Avan\xE7o da Vacina / + 2 de Recurso"
+  custo: 7
+  imagem: {fileID: 21300000, guid: de3e342111528b54093199aafe185d76, type: 3}
+  efeitos: 0d0000001f00000002000000

@@ -7,7 +7,7 @@ using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(EdgeCollider2D))]
 public class BaseController : NetworkBehaviour
-{
+{   
     public BaseClass regiao;
 
     public TextMeshProUGUI textoVida;
@@ -31,6 +31,12 @@ public class BaseController : NetworkBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic; // Para evitar interações físicas desnecessárias
     
         InitializeBase();
+    }
+
+    void Update(){
+        textoVida.text = regiao.vida.ToString();
+        textoDanoFuturos.text = regiao.DanoFuturo.ToString();
+        textoInfeccao.text = regiao.nivelInfecao.ToString();
     }
 
 

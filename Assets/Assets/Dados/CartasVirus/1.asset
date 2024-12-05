@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 1
   m_EditorClassIdentifier: 
   id: 1
-  nome: "Muta\xE7\xE3o: Infec\xE7\xE3o"
+  nome: "Propaga\xE7\xE3o Viral"
   descricao: Aumenta o recurso do virus em 1
   custo: 0
   imagem: {fileID: 21300000, guid: c5880de0d93f9f343b7285e0d7fe302a, type: 3}
-  efeitos: 04000000
+  efeitos: 0a000000

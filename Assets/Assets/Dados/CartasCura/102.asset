@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 102
   m_EditorClassIdentifier: 
   id: 102
-  nome: Quarentena
-  descricao: "Aumenta a defesa de uma regi\xE3o em 2"
+  nome: "Avan\xE7o da Pesquisa"
+  descricao: + 1 na Taxa de Pesquisa da Vacina
   custo: 0
-  imagem: {fileID: 21300000, guid: 69c30291565a1407abc7ca25da395ea9, type: 3}
-  efeitos: 03000000
+  imagem: {fileID: 21300000, guid: bbfadf1cc0542624895cb8e2e9297898, type: 3}
+  efeitos: 0b000000

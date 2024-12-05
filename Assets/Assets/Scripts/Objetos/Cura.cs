@@ -7,15 +7,15 @@ using Mirror;
 public class Cura : NetworkBehaviour
 {
     [SyncVar(hook = nameof(OnTaxaCuraChanged))] public int taxaDacura = 0;
-    [SyncVar(hook = nameof(OnTaxaPesquisaChanged))] public int taxaDePesquisa = 1;
-    [SyncVar(hook = nameof(OnFatorUrgenciaChanged))] public int fatorDeUrgencia = 1;
+    [SyncVar(hook = nameof(OnTaxaPesquisaChanged))] public int taxaDePesquisa = 0;
+    [SyncVar(hook = nameof(OnFatorUrgenciaChanged))] public int fatorDeUrgencia = 0;
     [SyncVar(hook = nameof(OnAvancoCuraChanged))] public int avancoDaCura = 0;
 
     [SyncVar(hook = nameof(OnRecursoCuraChanged))] public int recurso = 0;
 
     public delegate void AtributoCuraChanged();
-    public event AtributoCuraChanged OnCuraChanged;   
-     private void OnTaxaCuraChanged(int oldValue, int newValue)
+    public event AtributoCuraChanged OnCuraChanged;
+    private void OnTaxaCuraChanged(int oldValue, int newValue)
     {
         OnCuraChanged?.Invoke();
     }
@@ -33,22 +33,27 @@ public class Cura : NetworkBehaviour
     private void OnAvancoCuraChanged(int oldValue, int newValue)
     {
         OnCuraChanged?.Invoke();
-    } 
+    }
     private void OnRecursoCuraChanged(int oldValue, int newValue)
     {
         OnCuraChanged?.Invoke();
-    } 
+    }
     public void CalcularAvancoDaCura()
     {
-        avancoDaCura = (int)(taxaDePesquisa * fatorDeUrgencia * 0.1);
+        int avancoDaCura = (int)(taxaDePesquisa * fatorDeUrgencia / 4);
+        this.avancoDaCura += Mathf.Clamp(avancoDaCura, 0, 10);
     }
-    
-    
+
+
     public void CalcularFatorDeUrgencia(Virus virus, int populacaoMorta)
     {
+        int fatorBase = 10;
         int populacaoTotal = 47;
-        fatorDeUrgencia = (int)(1 + ((virus.taxaDeMortalidade + virus.taxaDeInfeccao) / 40) /
-        (((populacaoMorta / populacaoTotal) * 0.2)));
+        int fatorInfeccao = (virus.taxaDeMortalidade + virus.taxaDeInfeccao) / 4; // Divisão controlada para manter inteiros
+        int fatorPopulacao = populacaoTotal > 0 ? populacaoMorta  / populacaoTotal * 2 : 0; // Evita divisão por zero
+        int fatorUrgencia = fatorBase + fatorInfeccao + fatorPopulacao;
+        fatorDeUrgencia = Mathf.Clamp(fatorUrgencia, 0, 10);
+
     }
 
 }

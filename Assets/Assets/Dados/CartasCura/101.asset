@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 101
   m_EditorClassIdentifier: 
   id: 101
-  nome: Pesquisa
-  descricao: "Gera 1 de recurso cient\xEDfico"
-  custo: 3
-  imagem: {fileID: 21300000, guid: 2bb46e345aa0cb04aa67328b8f45ad1f, type: 3}
-  efeitos: 01000000
+  nome: Investimento
+  descricao: "+ 1 de recurso cient\xEDfico"
+  custo: 0
+  imagem: {fileID: 21300000, guid: e0e1484a0abd8324787a4487f1ab1296, type: 3}
+  efeitos: 65000000
